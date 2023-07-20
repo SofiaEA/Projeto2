@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Bilhetes do Evento</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" th:href="@{/index}">Gestão de Eventos</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a class="nav-link text-white" th:href="@{/eventosOrganizador}">Eventos</a></li>
+
+      <li><a class="nav-link text-white" th:href="@{/perfil}">Perfil</a></li>
+
+      <li><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<br>
+<div class="container-fluid text-center" >
+  <div m-4><h2>Lista de Bilhetes do Evento</h2></div>
+  <div class="m-2">
+    <br>
+    <a m-2 class="h4 styled-link" th:href="@{/bilhetes/newBilhete}">Criar Novo Bilhete</a>
+  </div>
+  <div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+  </div>
+  <br>
+
+  <div m-2 class="container-fluid text-center">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th>Nome do Evento</th>
+        <th>Tipo de Bilhetes</th>
+        <th>Preço</th>
+        <th>Número de Bilhetes Disponibilizados</th>
+        <th>Número de Bilhetes Ainda Disponíveis</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="bilhetes : ${bilhetesDoEvento}">
+        <td th:text="${bilhetes.id_evento.nome}"></td>
+        <td th:text="${bilhetes.id_tipo_bilhetes.nome}"></td>
+        <td th:text="${bilhetes.precototal + ' €'}"></td>
+        <td th:text="${bilhetes.num_bilhetes}"></td>
+        <td th:text="${bilhetes.bilhetes_disp}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+
+  .text-white {
+    color: #fff;
+  }
+
+  .styled-link {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #2fb6b6;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #2fb6b6;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .styled-link:hover {
+    background-color: #8ae1db;
+    color: #fff;
+  }
+</style>
+
+</body>
+</html>

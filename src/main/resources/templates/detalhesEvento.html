@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório do Evento</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+  <style>
+
+    .navbar {
+      background-color: #343a40;
+    }
+
+    .navbar-brand {
+      color: #fff;
+      font-size: 24px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    h5 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #343a40;
+      color: #fff;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+
+    .table-bordered {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" th:href="@{/index}">Gestão de Eventos</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a class="nav-link text-white" th:href="@{/eventosOrganizador}">Eventos</a></li>
+      <li><a class="nav-link text-white" th:href="@{/perfil}">Perfil</a></li>
+      <li><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<div style="margin-left: 40px; margin-top: 20px">
+  <h1>Relatório do Evento</h1>
+  <h2><span th:text="${evento.nome}"></span></h2>
+  <h5>Local: <span th:text="${evento.local}"></span></h5>
+  <h5>Categoria: <span th:text="${evento.idCategoria.nome}"></span></h5>
+  <h5>Data: <span th:text="${evento.data}"></span></h5>
+  <h5>Descrição: <span th:text="${evento.descricao}"></span></h5>
+  <h5>Capacidade Máxima: <span th:text="${evento.capacidade_max}"></span></h5>
+  <h5>Criador: <span th:text="${evento.idUser.nome}"></span></h5>
+</div>
+
+<div style="margin-left: 40px; margin-right: 40px; margin-top: 20px">
+  <div m-4><h2>Bilhetes Disponibilizados</h2></div>
+  <div style="margin-top: 30px">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th>Evento</th>
+        <th>Tipo de Bilhetes</th>
+        <th>Preço</th>
+        <th>Número de Bilhetes Disponibilizados</th>
+        <th>Número de Bilhetes Por Comprar</th>
+        <th>Número de Bilhetes Comprados</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="bilhete : ${bilhetes}">
+        <td th:text="${bilhete.id_evento.nome}"></td>
+        <td th:text="${bilhete.id_tipo_bilhetes.nome}"></td>
+        <td th:text="${bilhete.precototal + ' €'}"></td>
+        <td th:text="${bilhete.num_bilhetes}"></td>
+        <td th:text="${bilhete.bilhetes_disp}"></td>
+        <td th:text="${bilhete.bilhetes_comprados}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div style="margin-left: 40px; margin-right: 40px; margin-top: 20px">
+  <div m-4><h2>Bilhetes Comprados</h2></div>
+  <div style="margin-top: 30px">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th>Evento</th>
+        <th>User</th>
+        <th>Tipo de Bilhete</th>
+        <th>Preço por Bilhete</th>
+        <th>Número de Bilhetes</th>
+        <th>Preço Total</th>
+        <th>Data da Compra</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="compra : ${compras}">
+        <td th:text="${compra.id_bilhete.id_evento.nome}"></td>
+        <td th:text="${compra.id_user.nome}"></td>
+        <td th:text="${compra.id_bilhete.id_tipo_bilhetes.nome}"></td>
+        <td th:text="${compra.id_bilhete.precototal}"></td>
+        <td th:text="${compra.num_bilhetes}"></td>
+        <td th:text="${compra.total_preco}"></td>
+        <td th:text="${compra.data_compra}"></td>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

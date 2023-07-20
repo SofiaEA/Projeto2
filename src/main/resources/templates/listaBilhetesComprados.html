@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Bilhetes Comprados</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/index}">Gestão de Eventos</a>
+        </div>
+        <ul class="nav navbar-nav">
+
+            <li><a class="nav-link text-white" th:href="@{/listaEventos}">Eventos</a></li>
+
+            <li><a class="nav-link text-white" th:href="@{/perfil}">Perfil</a></li>
+
+            <li><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<br>
+<div class="container-fluid text-center" >
+    <div m-4><h2>Lista de Bilhetes Comprados</h2></div>
+<br>
+    <div m-2 class="container-fluid text-center">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>User</th>
+                <th>Evento</th>
+                <th>Tipo de Bilhete</th>
+                <th>Preço por Bilhete</th>
+                <th>Número de Bilhetes</th>
+                <th>Preço Total</th>
+                <th>Data da Compra</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="compra : ${compras}">
+                <td th:text="${compra.id_user.nome}"></td>
+                <td th:text="${compra.id_bilhete.id_evento.nome}"></td>
+                <td th:text="${compra.id_bilhete.id_tipo_bilhetes.nome}"></td>
+                <td th:text="${compra.id_bilhete.precototal}"></td>
+                <td th:text="${compra.num_bilhetes}"></td>
+                <td th:text="${compra.total_preco}"></td>
+                <td th:text="${compra.data_compra}"></td>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+
+    .text-white {
+        color: #fff;
+    }
+</style>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Eventos</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" th:href="@{/index}">Gestão de Eventos</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a class="nav-link text-white" th:href="@{/users}">Users</a></li>
+
+      <li><a class="nav-link text-white" th:href="@{/eventos}">Eventos</a></li>
+
+      <li><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<br>
+
+<div class="container-fluid text-center" >
+  <div m-4><h2>Lista de Eventos</h2></div>
+  <div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+  </div>
+
+  <br>
+
+  <div m-2 class="container-fluid text-center">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th>Nome</th>
+        <th>Localização</th>
+        <th>Data</th>
+        <th>Capacidade Máxima</th>
+        <th>Categoria</th>
+        <th>Criador do Evento</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="evento : ${eventos}">
+        <td th:text="${evento.nome}"></td>
+        <td th:text="${evento.local}"></td>
+        <td th:text="${evento.data}"></td>
+        <td th:text="${evento.capacidade_max + ' pessoas'}"></td>
+        <td th:text="${evento.idCategoria.nome}"></td>
+        <td th:text="${evento.idUser.nome}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+
+  .text-white {
+    color: #fff; /* Cor do texto em branco */
+  }
+
+</style>
+</body>
+</html>
