@@ -1,5 +1,6 @@
 package com.example.projeto2.controllers;
 
+import com.example.projeto2.models.TipoUser;
 import com.example.projeto2.models.User;
 import com.example.projeto2.models.UserRole;
 import com.example.projeto2.services.UserNotFoundException;
@@ -39,11 +40,16 @@ public class UsersController {
 
     @PostMapping("/users/save")
     public ModelAndView saveUser(User user, RedirectAttributes ra) {
-        if(user.getTipo_user().equals(1)){
-            user.setUserRole(USERMANAGER);
-        } else if (user.getTipo_user().equals(2)) {
+        TipoUser tipoUser = user.getTipo_user();
+        if (tipoUser.equals(1)) {
+            System.out.println(user.getTipo_user());
+            user.setUserRole(UserRole.USERMANAGER);
+        } else if (tipoUser.equals(2)) {
             user.setUserRole(UserRole.ORGANIZADOR);
-        } else user.setUserRole(UserRole.PARTICIPANTE);
+        } else {
+            user.setUserRole(UserRole.PARTICIPANTE);
+        }
+
         userService.save(user);
         ModelAndView modelAndView = new ModelAndView("redirect:/users");
         ra.addFlashAttribute("message", "O utilizador foi adicionado com sucesso!");
