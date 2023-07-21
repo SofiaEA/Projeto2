@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("auth")
@@ -46,6 +47,7 @@ public class AuthenticationController {
     @GetMapping("/registar")
     public ModelAndView getNewForm() {
         ModelAndView modelAndView = new ModelAndView("registar");
+        modelAndView.addObject("user", new User());
         return modelAndView;
     }
 
@@ -70,16 +72,32 @@ public class AuthenticationController {
 
         return modelAndView;
     }
+
     @PostMapping("/registar")
-    public ResponseEntity register(@RequestBody @Validated RegisterDTO data){
-        if(this.userRepository.findByUsername(data.username()) != null) return ResponseEntity.badRequest().build();
+    public RedirectView register(@RequestBody @Validated RegisterDTO data) {
+        if (this.userRepository.findByUsername(data.username()) != null) {
+            // Usuário já existe, retorne o redirecionamento para a página de registro novamente
+            return new RedirectView("/auth/registar");
+        }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.username(), encryptedPassword, data.role());
-
         this.userRepository.save(newUser);
 
-        return ResponseEntity.ok().build();
+        // Redirecionar para a página de login após o registro bem-sucedido
+        return new RedirectView("/auth/login");
     }
+
+//    @PostMapping("/registar")
+//    public ResponseEntity register(@RequestBody @Validated RegisterDTO data){
+//        if(this.userRepository.findByUsername(data.username()) != null) return ResponseEntity.badRequest().build();
+//
+//        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+//        User newUser = new User(data.username(), encryptedPassword, data.role());
+//
+//        this.userRepository.save(newUser);
+//
+//        return ResponseEntity.ok().build();
+//    }
 
 }

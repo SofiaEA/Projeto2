@@ -13,8 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-import static com.example.projeto2.models.UserRole.USERMANAGER;
-
 
 @RestController
 public class UsersController {
@@ -40,16 +38,13 @@ public class UsersController {
 
     @PostMapping("/users/save")
     public ModelAndView saveUser(User user, RedirectAttributes ra) {
-        TipoUser tipoUser = user.getTipo_user();
-        if (tipoUser.equals(1)) {
-            System.out.println(user.getTipo_user());
+        if (user.getTipo_user().getNome().equalsIgnoreCase("UserManager")) {
             user.setUserRole(UserRole.USERMANAGER);
-        } else if (tipoUser.equals(2)) {
+        } else if (user.getTipo_user().getNome().equalsIgnoreCase("Organizador")) {
             user.setUserRole(UserRole.ORGANIZADOR);
-        } else {
+        } else if (user.getTipo_user().getNome().equalsIgnoreCase("Participante")) {
             user.setUserRole(UserRole.PARTICIPANTE);
         }
-
         userService.save(user);
         ModelAndView modelAndView = new ModelAndView("redirect:/users");
         ra.addFlashAttribute("message", "O utilizador foi adicionado com sucesso!");

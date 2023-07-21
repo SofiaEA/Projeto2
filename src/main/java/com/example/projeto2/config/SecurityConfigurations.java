@@ -28,7 +28,12 @@ public class SecurityConfigurations {
                .authorizeHttpRequests(authorize -> authorize
                        .requestMatchers(HttpMethod.POST, "/auth/*").permitAll()
                        .requestMatchers(HttpMethod.GET, "/auth/*").permitAll()
-                       .requestMatchers(HttpMethod.GET, "/index").hasRole("participante")
+                       .requestMatchers(HttpMethod.GET, "/eventos").hasRole("userManager")
+                       .requestMatchers(HttpMethod.POST, "/eventos").hasRole("userManager")
+                       .requestMatchers(HttpMethod.GET, "/eventosOrganizador").hasRole("organizador")
+                       .requestMatchers(HttpMethod.POST, "/eventosOrganizador").hasRole("organizador")
+                       .requestMatchers(HttpMethod.GET, "/participanteEventos").hasRole("participante")
+                       .requestMatchers(HttpMethod.POST, "/participanteEventos").hasRole("participante")
                        .anyRequest().permitAll()
                )
                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

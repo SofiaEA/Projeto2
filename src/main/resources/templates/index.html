@@ -29,6 +29,32 @@
         </ul>
     </div>
 </nav>
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+    <div class="container-fluid">
+        <!-- Restante da navbar -->
+        <ul class="nav navbar-nav">
+            <!-- Exibir opções específicas para o papel 'USERMANAGER' -->
+            <li th:if="${#authentication.principal.userRole == 'userManager'}">
+                <a class="nav-link text-white" th:href="@{/users}">Users</a>
+                <a class="nav-link text-white" th:href="@{/eventos}">Eventos</a>
+            </li>
+
+            <!-- Exibir opções específicas para o papel 'ORGANIZADOR' -->
+            <li th:if="${#authentication.principal.userRole == 'organizador'}">
+                <a class="nav-link text-white" th:href="@{/eventosOrganizador}">Eventos</a>
+                <a class="nav-link text-white" th:href="@{/eventosOrganizador/bilhetes}">Bilhetes</a>
+            </li>
+
+            <!-- Exibir opções específicas para o papel 'PARTICIPANTE' -->
+            <li th:if="${#authentication.principal.userRole == 'participante'}">
+                <a class="nav-link text-white" th:href="@{/participanteEventos/listaEventos}">Eventos</a>
+                <a class="nav-link text-white" th:href="@{/participanteEventos/listaBilhetesComprados}">Bilhetes Comprados</a>
+            </li>
+
+            <li><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
+        </ul>
+    </div>
+</nav>
 
 <style>
 

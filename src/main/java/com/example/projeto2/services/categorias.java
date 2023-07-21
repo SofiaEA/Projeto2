@@ -1,10 +1,7 @@
 package com.example.projeto2.services;
 
 import com.example.projeto2.models.Categorias;
-import com.example.projeto2.models.Eventos;
-import com.example.projeto2.models.TipoUser;
 import com.example.projeto2.repository.CategoriaRepository;
-import com.example.projeto2.repository.TipoUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

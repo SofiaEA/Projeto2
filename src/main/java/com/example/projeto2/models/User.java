@@ -21,7 +21,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private Integer telemovel;
+    private java.lang.Integer telemovel;
     private UserRole userRole;
     @OneToOne
     @JoinColumn(name = "id_tipo_user")
@@ -44,11 +44,11 @@ public class User implements UserDetails {
         this.userRole = userRole;
     }
 
-    public Integer getId_user() {
+    public java.lang.Integer getId_user() {
         return id_user;
     }
 
-    public void setId_user(Integer id_user) {
+    public void setId_user(java.lang.Integer id_user) {
         this.id_user = id_user;
     }
 
@@ -105,11 +105,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Integer getTelemovel() {
+    public java.lang.Integer getTelemovel() {
         return telemovel;
     }
 
-    public void setTelemovel(Integer telemovel) {
+    public void setTelemovel(java.lang.Integer telemovel) {
         this.telemovel = telemovel;
     }
 
