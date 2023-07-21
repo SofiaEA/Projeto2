@@ -6,13 +6,17 @@ import com.example.projeto2.RegisterDTO;
 import com.example.projeto2.config.TokenService;
 import com.example.projeto2.models.User;
 import com.example.projeto2.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("auth")
@@ -27,38 +31,44 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-//    @GetMapping("/registar")
-//    public ModelAndView getNewForm() {
-//        ModelAndView modelAndView = new ModelAndView("registar");
-//        modelAndView.addObject("user", new User());
-//        return modelAndView;
-//    }
-//    @GetMapping("/login")
-//    public String showLoginForm() {
-//    return "login";
-//    }
+    @GetMapping("/login")
+    public ModelAndView showLoginForm() {
+        ModelAndView modelAndView = new ModelAndView("login");
+        return modelAndView;
+    }
 
-//    @PostMapping("/login")
-//    public ModelAndView processLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
-//        User user = userRepository.findByUsername(username);
-//
-//        if (user != null && user.getPassword().equals(password)) {
-//            return new ModelAndView("redirect:/index");
-//        } else {
-//            ModelAndView modelAndView = new ModelAndView("login");
-//            modelAndView.addObject("error", "Credenciais inválidas");
-//            return modelAndView;
-//        }
-//    }
+    @GetMapping("/registar")
+    public ModelAndView showRegistarForm() {
+        ModelAndView modelAndView = new ModelAndView("registar");
+        return modelAndView;
+    }
+
+    @GetMapping("/index")
+    public ModelAndView showIndex() {
+        ModelAndView modelAndView = new ModelAndView("index");
+        return modelAndView;
+    }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Validated AuthenticationDTO data){
+    public ModelAndView login(@RequestBody @Validated AuthenticationDTO data, BindingResult bindingResult, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("login");
+            return modelAndView;
+        }
+
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+        if (auth.isAuthenticated()) {
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            modelAndView.setViewName("redirect:/index");
+        } else {
+            modelAndView.setViewName("login");
+        }
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return modelAndView;
     }
 
     @PostMapping("/registar")
@@ -72,16 +82,5 @@ public class AuthenticationController {
 
         return ResponseEntity.ok().build();
     }
-
-
-//    @GetMapping("/index")
-//    public String showInicioForm() {
-//        return "index";
-//    }
-//
-//    @GetMapping("/logout")
-//    public String logout() {
-//        return "login";
-//    }
 
 }

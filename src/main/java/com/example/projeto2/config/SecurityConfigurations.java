@@ -26,11 +26,10 @@ public class SecurityConfigurations {
        return http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                .authorizeHttpRequests(authorize -> authorize
-                       .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                       .requestMatchers(HttpMethod.GET, "/auth/login").permitAll()
-                       .requestMatchers(HttpMethod.POST, "/auth/registar").permitAll()
-                       .requestMatchers(HttpMethod.GET, "/bilhetes/*").hasRole("ORGANIZADOR")
-                       .anyRequest().authenticated()
+                       .requestMatchers(HttpMethod.POST, "/auth/*").permitAll()
+                       .requestMatchers(HttpMethod.GET, "/auth/*").permitAll()
+                       .requestMatchers(HttpMethod.GET, "/index").hasRole("participante")
+                       .anyRequest().permitAll()
                )
                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                .build();
