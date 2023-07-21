@@ -22,16 +22,16 @@ public class User implements UserDetails {
     private String password;
     @Column(nullable = false)
     private Integer telemovel;
-
     private UserRole userRole;
-
-
     @OneToOne
     @JoinColumn(name = "id_tipo_user")
     private TipoUser tipo_user;
 
-
-
+    public User(String login, String password, UserRole role){
+        this.username = login;
+        this.password = password;
+        this.userRole = role;
+    }
 
     public UserRole getUserRole() {
         return userRole;
@@ -86,9 +86,14 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.userRole == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
-                new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.userRole == UserRole.USERMANAGER)
+            return List.of(new SimpleGrantedAuthority("ROLE_USERMANAGER"),
+                new SimpleGrantedAuthority("ROLE_ORGANIZADOR"),
+                    new SimpleGrantedAuthority("ROLE_PARTICIPANTE"));
+        if (this.userRole == UserRole.ORGANIZADOR)
+            return List.of(new SimpleGrantedAuthority("ROLE_ORGANIZADOR"),
+                new SimpleGrantedAuthority("ROLE_PARTICIPANTE"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_PARTICIPANTE"));
     }
 
     public String getPassword() {

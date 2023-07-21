@@ -27,12 +27,12 @@ public class UsersController {
         return modelAndView;
     }
 
-    @GetMapping("/users/newUser")
-    public ModelAndView getNewForm() {
-        ModelAndView modelAndView = new ModelAndView("user_form");
-        modelAndView.addObject("user", new User());
-        return modelAndView;
-    }
+//    @GetMapping("/users/newUser")
+//    public ModelAndView getNewForm() {
+//        ModelAndView modelAndView = new ModelAndView("user_form");
+//        modelAndView.addObject("user", new User());
+//        return modelAndView;
+//    }
 
 
     @PostMapping("/users/save")

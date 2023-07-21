@@ -23,10 +23,10 @@ public class users implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserDetails user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException(email);
+            throw new UsernameNotFoundException(username);
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
@@ -40,7 +40,7 @@ public class users implements UserDetailsService {
     }
 
     public User getUserById(Integer id_user) throws UserNotFoundException {
-        Optional<User> result = userRepository.findById(id_user);
+        Optional<User> result = userRepository.findById(String.valueOf(id_user));
         if(result.isPresent()){
             return result.get();
         }
@@ -48,7 +48,7 @@ public class users implements UserDetailsService {
     }
 
     public void deleteUser(Integer id_user){
-        userRepository.deleteById(id_user);
+        userRepository.deleteById(String.valueOf(id_user));
     }
 
 }

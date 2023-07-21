@@ -1,8 +1,9 @@
 package com.example.projeto2.models;
 
 public enum UserRole {
-    ADMIN ("admin"),
-    USER("user");
+    USERMANAGER ("userManager"),
+    ORGANIZADOR("organizador"),
+    PARTICIPANTE("participante");
 
     private final String role;
 
