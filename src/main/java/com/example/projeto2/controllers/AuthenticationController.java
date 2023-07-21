@@ -33,10 +33,10 @@ public class AuthenticationController {
 //        modelAndView.addObject("user", new User());
 //        return modelAndView;
 //    }
-    @GetMapping("/")
-    public String showLoginForm() {
-        return "login";
-    }
+//    @GetMapping("/login")
+//    public String showLoginForm() {
+//    return "login";
+//    }
 
 //    @PostMapping("/login")
 //    public ModelAndView processLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
@@ -63,10 +63,10 @@ public class AuthenticationController {
 
     @PostMapping("/registar")
     public ResponseEntity register(@RequestBody @Validated RegisterDTO data){
-        if(this.userRepository.findByUsername(data.login()) != null) return ResponseEntity.badRequest().build();
+        if(this.userRepository.findByUsername(data.username()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), encryptedPassword, data.role());
+        User newUser = new User(data.username(), encryptedPassword, data.role());
 
         this.userRepository.save(newUser);
 
@@ -74,14 +74,14 @@ public class AuthenticationController {
     }
 
 
-    @GetMapping("/index")
-    public String showInicioForm() {
-        return "index";
-    }
-
-    @GetMapping("/logout")
-    public String logout() {
-        return "login";
-    }
+//    @GetMapping("/index")
+//    public String showInicioForm() {
+//        return "index";
+//    }
+//
+//    @GetMapping("/logout")
+//    public String logout() {
+//        return "login";
+//    }
 
 }

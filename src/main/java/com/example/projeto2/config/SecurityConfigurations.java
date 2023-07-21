@@ -26,7 +26,6 @@ public class SecurityConfigurations {
        return http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                .authorizeHttpRequests(authorize -> authorize
-                       .requestMatchers(HttpMethod.GET, "/").permitAll()
                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                        .requestMatchers(HttpMethod.POST, "/auth/registar").permitAll()
                        .requestMatchers(HttpMethod.GET, "/bilhetes/*").hasRole("ORGANIZADOR")

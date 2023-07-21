@@ -40,7 +40,7 @@ public class EventosController {
         return modelAndView;
     }
 
-    @GetMapping("/listaEventos")
+    @GetMapping("/eventos/listaEventos")
     public ModelAndView getListaEventos(String keyword) {
         ModelAndView modelAndView = new ModelAndView("listaEventos");
         if (keyword != null) {
@@ -53,7 +53,7 @@ public class EventosController {
         return modelAndView;
     }
 
-    @GetMapping("/eventosOrganizador")
+    @GetMapping("/eventos/eventosOrganizador")
     public ModelAndView getEventosOrganizador() {
         ModelAndView modelAndView = new ModelAndView("eventosOrganizador");
         List<Eventos> eventosOrganizador = eventosService.getAllEventosOrganizador();
