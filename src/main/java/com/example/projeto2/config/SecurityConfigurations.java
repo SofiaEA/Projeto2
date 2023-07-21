@@ -27,6 +27,7 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                .authorizeHttpRequests(authorize -> authorize
                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                       .requestMatchers(HttpMethod.GET, "/auth/login").permitAll()
                        .requestMatchers(HttpMethod.POST, "/auth/registar").permitAll()
                        .requestMatchers(HttpMethod.GET, "/bilhetes/*").hasRole("ORGANIZADOR")
                        .anyRequest().authenticated()
