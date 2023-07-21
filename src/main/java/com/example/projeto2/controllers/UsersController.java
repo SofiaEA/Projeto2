@@ -1,6 +1,7 @@
 package com.example.projeto2.controllers;
 
 import com.example.projeto2.models.User;
+import com.example.projeto2.models.UserRole;
 import com.example.projeto2.services.UserNotFoundException;
 import com.example.projeto2.services.users;
 import jakarta.annotation.Resource;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+import static com.example.projeto2.models.UserRole.USERMANAGER;
 
 
 @RestController
@@ -37,6 +39,11 @@ public class UsersController {
 
     @PostMapping("/users/save")
     public ModelAndView saveUser(User user, RedirectAttributes ra) {
+        if(user.getTipo_user().equals(1)){
+            user.setUserRole(USERMANAGER);
+        } else if (user.getTipo_user().equals(2)) {
+            user.setUserRole(UserRole.ORGANIZADOR);
+        } else user.setUserRole(UserRole.PARTICIPANTE);
         userService.save(user);
         ModelAndView modelAndView = new ModelAndView("redirect:/users");
         ra.addFlashAttribute("message", "O utilizador foi adicionado com sucesso!");

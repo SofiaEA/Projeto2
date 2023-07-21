@@ -90,13 +90,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.userRole == UserRole.USERMANAGER)
-            return List.of(new SimpleGrantedAuthority("ROLE_USERMANAGER"),
-                new SimpleGrantedAuthority("ROLE_ORGANIZADOR"),
-                    new SimpleGrantedAuthority("ROLE_PARTICIPANTE"));
+            return List.of(new SimpleGrantedAuthority("ROLE_USERMANAGER"));
         if (this.userRole == UserRole.ORGANIZADOR)
-            return List.of(new SimpleGrantedAuthority("ROLE_ORGANIZADOR"),
-                new SimpleGrantedAuthority("ROLE_PARTICIPANTE"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_PARTICIPANTE"));
+            return List.of(new SimpleGrantedAuthority("ROLE_ORGANIZADOR"));
+        else
+            return List.of(new SimpleGrantedAuthority("ROLE_PARTICIPANTE"));
     }
 
     public String getPassword() {
