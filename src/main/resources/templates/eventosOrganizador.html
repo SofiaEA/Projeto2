@@ -9,10 +9,11 @@
 <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/index}">Gestão de Eventos</a>
+            <a class="navbar-brand" th:href="@{/auth/index}">Gestão de Eventos</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a class="nav-link text-white" th:href="@{/eventosOrganizador}">Eventos</a></li>
+            <li><a class="nav-link text-white" th:href="@{/eventosOrganizador/bilhetes}">Bilhetes</a></li>
             <li><a class="nav-link text-white" th:href="@{/perfil}">Perfil</a></li>
             <li><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
         </ul>
@@ -23,10 +24,10 @@
     <div m-4><h2>Lista de Eventos</h2></div>
     <div class="m-2">
         <br>
-        <a m-2 class="h4 styled-link" th:href="@{/eventos/newEvento}">Criar Novo Evento</a>
+        <a m-2 class="h4 styled-link" th:href="@{/eventosOrganizador/newEvento}">Criar Novo Evento</a>
     </div>
     <div class="m-2">
-        <a m-2 class="h4 styled-link" th:href="@{/bilhetes}">Ver Bilhetes</a>
+        <a m-2 class="h4 styled-link" th:href="@{/eventosOrganizador/bilhetes}">Ver Bilhetes</a>
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
@@ -56,13 +57,13 @@
                 <td th:text="${eventosOrganizador.capacidade_max + ' pessoas'}"></td>
                 <td th:text="${eventosOrganizador.idCategoria.nome}"></td>
                 <td>
-                    <a class="h4 styled-link" th:href="@{'/eventos/edit/' + ${eventosOrganizador.id_evento}}">Editar</a>
+                    <a class="h4 styled-link" th:href="@{'/eventosOrganizador/edit/' + ${eventosOrganizador.id_evento}}">Editar</a>
                 </td>
                 <td>
-                    <a class="h4 styled-link" th:href="@{'/eventos/relatorio/'+ ${eventosOrganizador.id_evento}}">Relatório</a>
+                    <a class="h4 styled-link" th:href="@{'/eventosOrganizador/relatorio/'+ ${eventosOrganizador.id_evento}}">Relatório</a>
                 </td>
                 <td>
-                    <a class="h4 styled-link" th:href="@{'/bilhetesEvento/'+ ${eventosOrganizador.id_evento}}">Bilhetes</a>
+                    <a class="h4 styled-link" th:href="@{'/eventosOrganizador/bilhetesEvento/'+ ${eventosOrganizador.id_evento}}">Bilhetes</a>
                 </td>
             </tr>
             </tbody>

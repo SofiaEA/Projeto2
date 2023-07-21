@@ -9,11 +9,14 @@
 <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" th:href="@{/index}">Gestão de Eventos</a>
+      <a class="navbar-brand" th:href="@{/auth/index}">Gestão de Eventos</a>
     </div>
     <ul class="nav navbar-nav">
 
-      <li><a class="nav-link text-white" th:href="@{/listaEventos}">Eventos</a></li>
+      <li><a class="nav-link text-white" th:href="@{/participanteEventos/listaEventos}">Eventos</a></li>
+
+      <li><a class="nav-link text-white" th:href="@{/participanteEventos/listaBilhetesComprados}">Bilhetes Comprados</a></li>
+
 
       <li><a class="nav-link text-white" th:href="@{/perfil}">Perfil</a></li>
 
@@ -29,7 +32,7 @@
   </div>
   <br>
   <div>
-  <form th:action="@{/listaEventos}" method="get" class="search-form">
+  <form th:action="@{/participanteEventos/listaEventos}" method="get" class="search-form">
     <div class="search-container">
       <input id="txtSearch" type="text" name="keyword" class="form-control" placeholder="Procure um evento por nome ou local...">
       <button type="submit" class="btn btn-primary">Procurar</button>
@@ -60,7 +63,7 @@
         <td th:text="${listaEventos.data}"></td>
         <td th:text="${listaEventos.capacidade_max + ' pessoas'}"></td>
         <td th:text="${listaEventos.idCategoria.nome}"></td>
-        <td><a class="h4 mr-3 styled-link"th:href="@{'/listaEventos/listaBilhetes?id_evento=' + ${listaEventos.id_evento}}">Inscrever</a></td>
+        <td><a class="h4 mr-3 styled-link"th:href="@{'/participanteEventos/listaEventos/listaBilhetes?id_evento=' + ${listaEventos.id_evento}}">Inscrever</a></td>
       </tr>
       </tbody>
     </table>

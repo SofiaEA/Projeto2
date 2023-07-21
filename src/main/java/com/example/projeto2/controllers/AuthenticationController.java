@@ -37,15 +37,15 @@ public class AuthenticationController {
         return modelAndView;
     }
 
-    @GetMapping("/registar")
-    public ModelAndView showRegistarForm() {
-        ModelAndView modelAndView = new ModelAndView("registar");
+    @GetMapping("/index")
+    public ModelAndView showInicioForm() {
+        ModelAndView modelAndView = new ModelAndView("index");
         return modelAndView;
     }
 
-    @GetMapping("/index")
-    public ModelAndView showIndex() {
-        ModelAndView modelAndView = new ModelAndView("index");
+    @GetMapping("/registar")
+    public ModelAndView getNewForm() {
+        ModelAndView modelAndView = new ModelAndView("registar");
         return modelAndView;
     }
 
@@ -70,7 +70,6 @@ public class AuthenticationController {
 
         return modelAndView;
     }
-
     @PostMapping("/registar")
     public ResponseEntity register(@RequestBody @Validated RegisterDTO data){
         if(this.userRepository.findByUsername(data.username()) != null) return ResponseEntity.badRequest().build();

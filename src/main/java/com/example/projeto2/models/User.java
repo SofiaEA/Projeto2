@@ -33,6 +33,9 @@ public class User implements UserDetails {
         this.userRole = role;
     }
 
+    public User() {
+    }
+
     public UserRole getUserRole() {
         return userRole;
     }

@@ -26,7 +26,7 @@ public class BilhetesController {
     @Autowired
     private users userService;
 
-    @GetMapping("/bilhetes")
+    @GetMapping("/eventosOrganizador/bilhetes")
     public ModelAndView getBilhetes() {
         ModelAndView modelAndView = new ModelAndView("bilhetes");
         List<Bilhetes> bilhetes = bilhetesService.getAllBilhetes();
@@ -34,7 +34,7 @@ public class BilhetesController {
         return modelAndView;
     }
 
-    @GetMapping("/bilhetes/bilhetesEvento/{id}")
+    @GetMapping("/eventosOrganizador/bilhetesEvento/{id}")
     public ModelAndView getBilhetesEvento(@PathVariable("id") Integer id_evento) {
         ModelAndView modelAndView = new ModelAndView("listaBilhetesEvento");
         List<Bilhetes> bilhetes = bilhetesService.getBilhetesDoEvento(id_evento);
@@ -43,7 +43,7 @@ public class BilhetesController {
     }
 
 
-    @GetMapping("/bilhetes/listaEventos/listaBilhetes")
+    @GetMapping("/participanteEventos/listaEventos/listaBilhetes")
     public ModelAndView listaBilhetes(@RequestParam("id_evento") int idEvento) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -55,7 +55,7 @@ public class BilhetesController {
         return modelAndView;
     }
 
-    @GetMapping("/bilhetes/bilhetes/newBilhete")
+    @GetMapping("/eventosOrganizador/bilhetes/newBilhete")
     public ModelAndView getNewForm() {
         ModelAndView modelAndView = new ModelAndView("bilhete_form");
         modelAndView.addObject("bilhete", new Bilhetes());
@@ -63,7 +63,7 @@ public class BilhetesController {
         modelAndView.addObject("eventos", eventos);
         return modelAndView;
     }
-    @PostMapping("/bilhetes/bilhetes/save")
+    @PostMapping("/eventosOrganizador/bilhetes/save")
     public ModelAndView saveBilhete(@ModelAttribute("bilhete") Bilhetes bilhete, RedirectAttributes ra) {
         bilhete.setBilhetes_disp(bilhete.getNum_bilhetes());
         bilhete.setBilhetes_comprados(0);
@@ -75,7 +75,7 @@ public class BilhetesController {
         return modelAndView;
     }
 
-    @GetMapping("/bilhetes/listaEventos/listaBilhetes/comprarBilhetes/{id}")
+    @GetMapping("/participanteEventos/listaEventos/listaBilhetes/comprarBilhetes/{id}")
     public ModelAndView comprarBilhetes(@PathVariable("id") Integer id_bilhete) throws BilheteNotFoundException {
         Bilhetes bilhete = bilhetesService.getBilheteById(id_bilhete);
         ModelAndView modelAndView = new ModelAndView("comprarBilhetes");
@@ -84,7 +84,7 @@ public class BilhetesController {
     }
 
 //    @GetMapping
-//    @PostMapping("/bilhetes/comprarBilhetes")
+//    @PostMapping("/participanteEventos/comprarBilhetes")
 //    public ModelAndView confirmarCompra(@RequestParam("id_bilhete") int id_bilhete,
 //                                        @RequestParam("quantidade") int quantidade, RedirectAttributes ra) throws BilheteNotFoundException, UserNotFoundException {
 //        ModelAndView modelAndView = new ModelAndView();

@@ -14,7 +14,7 @@ public class ComprasController {
     @Resource(name = "comprasService")
     private compras comprasService;
 
-    @GetMapping("/bilhetes/listaBilhetesComprados")
+    @GetMapping("/participanteEventos/listaBilhetesComprados")
     public ModelAndView getAllCompras() {
         ModelAndView modelAndView = new ModelAndView("listaBilhetesComprados");
         List<Compras> listaBilhetesComprados = comprasService.getAllCompras();

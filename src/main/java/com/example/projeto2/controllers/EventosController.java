@@ -40,7 +40,7 @@ public class EventosController {
         return modelAndView;
     }
 
-    @GetMapping("/eventos/listaEventos")
+    @GetMapping("/participanteEventos/listaEventos")
     public ModelAndView getListaEventos(String keyword) {
         ModelAndView modelAndView = new ModelAndView("listaEventos");
         if (keyword != null) {
@@ -53,7 +53,7 @@ public class EventosController {
         return modelAndView;
     }
 
-    @GetMapping("/eventos/eventosOrganizador")
+    @GetMapping("/eventosOrganizador")
     public ModelAndView getEventosOrganizador() {
         ModelAndView modelAndView = new ModelAndView("eventosOrganizador");
         List<Eventos> eventosOrganizador = eventosService.getAllEventosOrganizador();
@@ -61,7 +61,7 @@ public class EventosController {
         return modelAndView;
     }
 
-    @PostMapping("/eventos/save")
+    @PostMapping("/eventosOrganizador/save")
     public ModelAndView saveUser(Eventos evento, RedirectAttributes ra) {
         eventosService.save(evento);
         ModelAndView modelAndView = new ModelAndView("redirect:/eventosOrganizador");
@@ -71,14 +71,14 @@ public class EventosController {
         return modelAndView;
     }
 
-    @GetMapping("/eventos/newEvento")
+    @GetMapping("/eventosOrganizador/newEvento")
     public ModelAndView getNewForm() {
         ModelAndView modelAndView = new ModelAndView("evento_form");
         modelAndView.addObject("evento", new Eventos());
         return modelAndView;
     }
 
-    @GetMapping("/eventos/edit/{id_evento}")
+    @GetMapping("/eventosOrganizador/edit/{id_evento}")
     public ModelAndView showEditForm(@PathVariable("id_evento") Integer id_evento) throws EventoNotFoundException {
         Eventos evento = eventosService.getUserById(id_evento);
         ModelAndView modelAndView = new ModelAndView("evento_form");
@@ -86,7 +86,7 @@ public class EventosController {
         return modelAndView;
     }
 
-    @GetMapping("/eventos/relatorio/{id_evento}")
+    @GetMapping("/eventosOrganizador/relatorio/{id_evento}")
     public ModelAndView eventoDetalhes(@PathVariable("id_evento") Integer id_evento) throws EventoNotFoundException {
         Eventos evento = eventosService.getEventoById(id_evento);
         List<Bilhetes> bilhetes = bilhetesService.getBilhetesDoEvento(id_evento);

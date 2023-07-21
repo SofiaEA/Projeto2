@@ -9,7 +9,7 @@
 <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/index}">Gestão de Eventos</a>
+            <a class="navbar-brand" th:href="@{/auth/index}">Gestão de Eventos</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a class="nav-link text-white" th:href="@{/users}">UserManagerUsers</a></li>
@@ -18,11 +18,11 @@
 
             <li><a class="nav-link text-white" th:href="@{/eventosOrganizador}">OrganizadorEventos</a></li>
 
-            <li><a class="nav-link text-white" th:href="@{/bilhetes}">OrganizadorBilhetes</a></li>
+            <li><a class="nav-link text-white" th:href="@{/eventosOrganizador/bilhetes}">OrganizadorBilhetes</a></li>
 
-            <li><a class="nav-link text-white" th:href="@{/listaEventos}">ParticipanteEventos</a></li>
+            <li><a class="nav-link text-white" th:href="@{/participanteEventos/listaEventos}">ParticipanteEventos</a></li>
 
-            <li><a class="nav-link text-white" th:href="@{/listaBilhetesComprados}">ParticipanteBilhetesComprados</a></li>
+            <li><a class="nav-link text-white" th:href="@{/participanteEventos/listaBilhetesComprados}">ParticipanteBilhetesComprados</a></li>
 
             <li><a class="nav-link text-white" th:href="@{/perfil}">Perfil</a></li>
 
