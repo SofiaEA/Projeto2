@@ -70,7 +70,7 @@ public class BilhetesController {
 
         bilhetesService.save(bilhete);
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/bilhetes");
+        ModelAndView modelAndView = new ModelAndView("redirect:/eventosOrganizador/bilhetes");
         ra.addFlashAttribute("message", "O bilhete foi adicionado com sucesso!");
         return modelAndView;
     }

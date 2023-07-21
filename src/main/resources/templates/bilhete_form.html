@@ -84,7 +84,7 @@
 <body>
 <div class="container">
   <h2 class="text-center">Adicionar um novo bilhete</h2>
-  <form th:action="@{/bilhetes/save}" method="post" th:object="${bilhete}">
+  <form th:action="@{/eventosOrganizador/bilhetes/save}" method="post" th:object="${bilhete}">
     <input type="hidden" th:field="*{id_bilhete}">
     <div class="border border-secondary rounded p-3">
       <div class="form-group-row">

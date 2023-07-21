@@ -1,0 +1,124 @@
+create table TipoUser
+(
+    "id_tipo_user" serial constraint TipoUsers_pk primary key,
+    nome         varchar(100)
+);
+alter table TipoUser owner to postgres;
+
+create unique index TipoUser_idTipoUser_Uindex on TipoUser ("id_tipo_user");
+
+create table Users(
+                      "id_user" serial constraint users_pk primary key,
+                      nome          varchar(255) not null ,
+                      email         varchar(100) not null UNIQUE,
+                      password      varchar(100) not null CHECK ( length(password) > 6),
+                      telemovel   integer,
+                      "id_tipo_user" integer constraint TipoUser_idTipoUser_fk references TipoUser
+);
+alter table Users owner to postgres;
+
+create unique index user_idUser_Uindex
+    on users ("id_user");
+
+create table Categorias(
+                           "id_categoria" serial constraint categorias_pk primary key,
+                           nome          varchar(255) not null
+);
+
+alter table Categorias owner to postgres;
+
+
+create unique index categorias_idCategoria_Uindex
+    on Categorias ("id_categoria");
+
+create table TipoBilhetes(
+                             "id_tipo_bilhete" serial constraint TipoBilhete_pk primary key,
+                             nome          varchar(255) not null
+);
+alter table TipoBilhetes owner to postgres;
+
+
+create unique index TipoBilhetes_idTipoBilhetes_Uindex
+    on TipoBilhetes ("id_tipo_bilhete");
+
+create table Eventos(
+                        "id_evento" serial constraint evento_pk primary key,
+                        nome          varchar(255) not null,
+                        local         varchar(100) not null,
+                        descricao     varchar(100),
+                        capacidade_max integer,
+                        data          date,
+                        "id_categoria" integer constraint categorias_idCategoria_fk references Categorias,
+                        "id_user" integer constraint user_idUser_fk references Users
+);
+alter table Eventos owner to postgres;
+
+create unique index Eventos_idEvento_Uindex
+    on Eventos ("id_evento");
+
+create table Bilhetes(
+                         "id_bilhete" serial constraint Bilhetes_pk primary key,
+                         precoTotal    float,
+                         "id_tipo_bilhetes" integer constraint TipoBilhetes_idTipoBilhetes_fk references TipoBilhetes,
+                         "id_evento" integer constraint Eventos_idEvento_fk references Eventos,
+                         num_bilhetes integer,
+                         bilhetes_disp integer,
+                         bilhetes_comprados integer
+);
+alter table Bilhetes owner to postgres;
+
+
+create unique index Bilhetes_idBilhete_Uindex
+    on Bilhetes ("id_bilhete");
+
+INSERT INTO TipoUser(nome) VALUES
+                               ('UserManager'),
+                               ('Organizador'),
+                               ('Participante');
+
+INSERT INTO Categorias(nome) VALUES
+                                 ('Eventos de empresas e eventos corporativos'),
+                                 ('Eventos com causa e de angariação de fundos'),
+                                 ('Eventos desportivos'),
+                                 ('Eventos públicos (da administração pública)'),
+                                 ('Eventos sociais'),
+                                 ('Reuniões ou convenções'),
+                                 ('Espetáculos e eventos de lazer');
+
+INSERT INTO TipoBilhetes(nome) VALUES
+                                   ('VIP'),
+                                   ('Normal'),
+                                   ('Pessoas com Necessidades Especiais'),
+                                   ('Convidados');
+
+DROP TABLE tipobilhetes;
+
+create table Compras(
+                         "id_compra" serial constraint Compras_pk primary key,
+                         "id_user" integer constraint user_idUser_fk references Users,
+                         "id_bilhete" integer constraint Bilhetes_idBilhete_fk references Bilhetes,
+                         num_bilhetes integer
+);
+
+
+ALTER TABLE Compras
+    ADD COLUMN data_compra timestamp DEFAULT current_timestamp;
+
+ALTER TABLE compras
+    ADD COLUMN total_preco FLOAT;
+
+ALTER TABLE users RENAME COLUMN email TO username;
+
+ALTER TABLE users
+    ADD COLUMN enabled BOOLEAN;
+
+ALTER TABLE users
+    ALTER COLUMN nome DROP NOT NULL;
+
+CREATE TABLE authorities (
+                             username VARCHAR(50),
+                             authority VARCHAR(50)
+);
+
+
+

@@ -84,7 +84,7 @@
 <body>
 <div class="container">
   <h2 class="text-center">Adicionar um novo evento</h2>
-  <form th:action="@{/eventos/save}" method="post" th:object="${evento}">
+  <form th:action="@{/eventosOrganizador/save}" method="post" th:object="${evento}">
     <input type="hidden" th:field="*{id_evento}">
     <input type="hidden" th:field="*{idUser}">
     <div class="border border-secondary rounded p-3">
