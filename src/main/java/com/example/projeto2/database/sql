@@ -18,7 +18,7 @@ create table Users(
 alter table Users owner to postgres;
 
 create unique index user_idUser_Uindex
-    on users ("id_user");
+    on userModels ("id_user");
 
 create table Categorias(
                            "id_categoria" serial constraint categorias_pk primary key,
@@ -107,12 +107,12 @@ ALTER TABLE Compras
 ALTER TABLE compras
     ADD COLUMN total_preco FLOAT;
 
-ALTER TABLE users RENAME COLUMN email TO username;
+ALTER TABLE userModels RENAME COLUMN email TO username;
 
-ALTER TABLE users
+ALTER TABLE userModels
     ADD COLUMN enabled BOOLEAN;
 
-ALTER TABLE users
+ALTER TABLE userModels
     ALTER COLUMN nome DROP NOT NULL;
 
 CREATE TABLE authorities (

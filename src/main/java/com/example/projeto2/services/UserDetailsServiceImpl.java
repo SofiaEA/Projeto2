@@ -15,8 +15,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Service("userService")
 public class users implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public users(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public void UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -40,7 +43,7 @@ public class users implements UserDetailsService {
     }
 
     public User getUserById(Integer id_user) throws UserNotFoundException {
-        Optional<User> result = userRepository.findById(String.valueOf(id_user));
+        Optional<User> result = userRepository.findById(id_user);
         if(result.isPresent()){
             return result.get();
         }
@@ -48,7 +51,7 @@ public class users implements UserDetailsService {
     }
 
     public void deleteUser(Integer id_user){
-        userRepository.deleteById(String.valueOf(id_user));
+        userRepository.deleteById(id_user);
     }
 
 }
