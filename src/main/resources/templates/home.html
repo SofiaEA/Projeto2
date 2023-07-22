@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-Vindo!!</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/auth/index}">Gestão de Eventos</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a class="nav-link text-white" th:href="@{/users}">UserManagerUsers</a></li>
+
+            <li><a class="nav-link text-white" th:href="@{/eventos}">UserManagerEventos</a></li>
+
+            <li><a class="nav-link text-white" th:href="@{/eventosOrganizador}">OrganizadorEventos</a></li>
+
+            <li><a class="nav-link text-white" th:href="@{/eventosOrganizador/bilhetes}">OrganizadorBilhetes</a></li>
+
+            <li><a class="nav-link text-white" th:href="@{/participanteEventos/listaEventos}">ParticipanteEventos</a></li>
+
+            <li><a class="nav-link text-white" th:href="@{/participanteEventos/listaBilhetesComprados}">ParticipanteBilhetesComprados</a></li>
+
+            <li><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
+
+        </ul>
+    </div>
+</nav>
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+    <div class="container-fluid">
+        <!-- Restante da navbar -->
+        <ul class="nav navbar-nav">
+            <!-- Exibir opções específicas para o papel 'USERMANAGER' -->
+            <li th:if="${#authentication.principal.userRole == 'userManager'}">
+                <a class="nav-link text-white" th:href="@{/users}">Users</a>
+                <a class="nav-link text-white" th:href="@{/eventos}">Eventos</a>
+            </li>
+
+            <!-- Exibir opções específicas para o papel 'ORGANIZADOR' -->
+            <li th:if="${#authentication.principal.userRole == 'organizador'}">
+                <a class="nav-link text-white" th:href="@{/eventosOrganizador}">Eventos</a>
+                <a class="nav-link text-white" th:href="@{/eventosOrganizador/bilhetes}">Bilhetes</a>
+            </li>
+
+            <!-- Exibir opções específicas para o papel 'PARTICIPANTE' -->
+            <li th:if="${#authentication.principal.userRole == 'participante'}">
+                <a class="nav-link text-white" th:href="@{/participanteEventos/listaEventos}">Eventos</a>
+                <a class="nav-link text-white" th:href="@{/participanteEventos/listaBilhetesComprados}">Bilhetes Comprados</a>
+            </li>
+
+            <li><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+
+    .text-white {
+        color: #ffffff;
+    }
+</style>
+<div style="margin-top: 50px" class="container-fluid text-center">
+    <h1>Bem-Vindo!</h1>
+    <br>
+    <img src="/gestaoEventos.png" alt="Gestão de Eventos" width="700"> <br>
+</div>
+</body>
+</html>
