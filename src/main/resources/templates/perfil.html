@@ -1,10 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Eventos</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
 <head>
   <title>Perfil</title>
+  <style>
+
+    .text-white {
+      color: #fff;
+    }
+
+    .styled-link {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 1px solid #2fb6b6;
+      border-radius: 5px;
+      text-decoration: none;
+      color: #2fb6b6;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .styled-link:hover {
+      background-color: #8ae1db;
+      color: #fff;
+    }
+    .search-form {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .search-container {
+      width: 500px;
+    }
+
+    .search-container .form-control {
+      width: 100%;
+    }
+
+
+    .form-control {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .btn-primary {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+
+  </style>
 </head>
 <body>
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+  <div class="navbar-header">
+    <a class="navbar-brand" th:href="@{/app/home}">Gestão de Eventos</a>
+  </div>
+  <div class="container-fluid">
+    <ul class="nav navbar-nav ml-auto"> <!-- Utilizando 'ml-auto' para alinhar à direita -->
+      <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('MANAGER'))}">
+        <a class="nav-link text-white" th:href="@{/users}">Users</a>
+      </li>
+      <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('MANAGER'))}">
+        <a class="nav-link text-white" th:href="@{/eventos}">Eventos</a>
+      </li>
+
+      <!-- Exibir opções específicas para o papel 'ORGANIZADOR' -->
+      <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('ORGANIZER'))}">
+        <a class="nav-link text-white" th:href="@{/eventosOrganizador}">Eventos</a>
+      </li>
+      <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('ORGANIZER'))}">
+        <a class="nav-link text-white" th:href="@{/eventosOrganizador/bilhetes}">Bilhetes</a>
+      </li>
+
+      <!-- Exibir opções específicas para o papel 'PARTICIPANTE' -->
+      <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('PARTICIPANT'))}">
+        <a class="nav-link text-white" th:href="@{/participanteEventos/listaEventos}">Eventos</a>
+      </li>
+      <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('PARTICIPANT'))}">
+        <a class="nav-link text-white" th:href="@{/participanteEventos/listaBilhetesComprados}">Bilhetes Comprados</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white" th:href="@{/logout}">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 <h1>Perfil do Usuário</h1>
-<p class="h3" th:text="${#authentication.getName()}"> Nome:</p>
+<div class="profile-info">
+  <p class="h3">Email: <span th:text="${user.isPresent() ? user.get().username : ''}"></span></p>
+  <p class="h3">Nome: <span th:text="${user.isPresent() ? user.get().name : ''}"></span></p>
+  <p class="h3">Telemóvel: <span th:text="${user.isPresent() ? user.get().phoneNumber : ''}"></span></p>
+  <p class="h3">Tipo de Usuário: <span th:text="${user.isPresent() ? user.get().userRole : ''}"></span></p>
+</div>
 </body>
 </html>
