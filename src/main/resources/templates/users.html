@@ -12,7 +12,7 @@
             <a class="navbar-brand" th:href="@{/auth/index}">Gestão de Eventos</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a class="nav-link text-white" th:href="@{/users}">Users</a></li>
+            <li><a class="nav-link text-white" th:href="@{/userModels}">Users</a></li>
 
             <li><a class="nav-link text-white" th:href="@{/eventos}">Eventos</a></li>
 
@@ -61,7 +61,7 @@
     <div m-4><h2>Lista de Utilizadores</h2></div>
     <div class="m-2">
         <br>
-        <a m-2 class="h4 styled-link" th:href="@{/users/newUser}">Adicionar Novo Utilizador</a>
+        <a m-2 class="h4 styled-link" th:href="@{/userModels/newUserModel}">Adicionar Novo Utilizador</a>
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
@@ -83,14 +83,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.id_user}"></td>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.nome}"></td>
-                <td th:text="${user.telemovel}"></td>
-                <td th:text="${user.tipo_user.nome}"></td>
+            <tr th:each="userModel : ${userModels}">
+                <td th:text="${userModel.id_user}"></td>
+                <td th:text="${userModel.username}"></td>
+                <td th:text="${userModel.name}"></td>
+                <td th:text="${userModel.phoneNumber}"></td>
+                <td th:text="${userModel.tipo_user.nome}"></td>
                 <td>
-                    <a class="h4 styled-linke" th:href="@{'/users/delete/' + ${user.id_user}}">Eliminar</a>
+                    <a class="h4 styled-linke" th:href="@{'/userModels/delete/' + ${userModel.id_user}}">Eliminar</a>
                 </td>
             </tr>
             </tbody>

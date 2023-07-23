@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -17,14 +16,17 @@ public class BilhetesController {
     @Resource(name = "bilhetesService")
     private bilhetes bilhetesService;
 
-    @Autowired
-    private eventos eventoService;
+    private final eventos eventoService;
 
-    @Autowired
-    private compras comprasService;
+    private final compras comprasService;
 
-    @Autowired
-    private users userService;
+    private final UserDetailsServiceImpl userService;
+
+    public BilhetesController(eventos eventoService, compras comprasService, UserDetailsServiceImpl userService) {
+        this.eventoService = eventoService;
+        this.comprasService = comprasService;
+        this.userService = userService;
+    }
 
     @GetMapping("/eventosOrganizador/bilhetes")
     public ModelAndView getBilhetes() {

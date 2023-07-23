@@ -1,10 +1,9 @@
 package com.example.projeto2.controllers;
 
-import com.example.projeto2.models.TipoUser;
-import com.example.projeto2.models.User;
+import com.example.projeto2.models.UserModel;
 import com.example.projeto2.models.UserRole;
 import com.example.projeto2.services.UserNotFoundException;
-import com.example.projeto2.services.users;
+import com.example.projeto2.services.UserDetailsServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,35 +16,36 @@ import java.util.List;
 @RestController
 public class UsersController {
     @Resource(name = "userService")
-    private users userService;
+    private UserDetailsServiceImpl userService;
 
 
     @GetMapping("/users")
     public ModelAndView getUsers() {
         ModelAndView modelAndView = new ModelAndView("users");
-        List<User> users = userService.getAllUsers();
-        modelAndView.addObject("users", users);
+        List<UserModel> userModels = userService.getAllUsers();
+        modelAndView.addObject("users", userModels);
         return modelAndView;
     }
 
     @GetMapping("/users/newUser")
     public ModelAndView getNewForm() {
         ModelAndView modelAndView = new ModelAndView("user_form");
-        modelAndView.addObject("user", new User());
+        modelAndView.addObject("user", new UserModel());
         return modelAndView;
    }
 
 
     @PostMapping("/users/save")
-    public ModelAndView saveUser(User user, RedirectAttributes ra) {
-        if (user.getTipo_user().getNome().equalsIgnoreCase("UserManager")) {
-            user.setUserRole(UserRole.USERMANAGER);
-        } else if (user.getTipo_user().getNome().equalsIgnoreCase("Organizador")) {
-            user.setUserRole(UserRole.ORGANIZADOR);
-        } else if (user.getTipo_user().getNome().equalsIgnoreCase("Participante")) {
-            user.setUserRole(UserRole.PARTICIPANTE);
+    public ModelAndView saveUser(UserModel userModel, RedirectAttributes ra) {
+        // isso nao faz sentido
+        if (userModel.getUserRole() == UserRole.MANAGER) {
+            userModel.setUserRole(UserRole.MANAGER);
+        } else if (userModel.getUserRole() == UserRole.ORGANIZER) {
+            userModel.setUserRole(UserRole.ORGANIZER);
+        } else if (userModel.getUserRole() == UserRole.PARTICIPANT) {
+            userModel.setUserRole(UserRole.PARTICIPANT);
         }
-        userService.save(user);
+        userService.save(userModel);
         ModelAndView modelAndView = new ModelAndView("redirect:/users");
         ra.addFlashAttribute("message", "O utilizador foi adicionado com sucesso!");
         return modelAndView;
@@ -53,9 +53,9 @@ public class UsersController {
 
     @GetMapping("/users/edit/{id_user}")
     public ModelAndView showEditForm(@PathVariable("id_user") Integer id_user) throws UserNotFoundException {
-        User user = userService.getUserById(id_user);
+        UserModel userModel = userService.getUserById(id_user);
         ModelAndView modelAndView = new ModelAndView("user_form");
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", userModel);
         return modelAndView;
     }
 

@@ -1,11 +1,8 @@
 package com.example.projeto2.repository;
 
-import com.example.projeto2.models.Bilhetes;
 import com.example.projeto2.models.Eventos;
-import com.example.projeto2.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 

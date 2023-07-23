@@ -1,11 +1,6 @@
 package com.example.projeto2.services;
 
-import com.example.projeto2.controllers.EventosController;
-import com.example.projeto2.models.Bilhetes;
-import com.example.projeto2.models.Categorias;
 import com.example.projeto2.models.Eventos;
-import com.example.projeto2.models.User;
-import com.example.projeto2.repository.BilhetesRepository;
 import com.example.projeto2.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

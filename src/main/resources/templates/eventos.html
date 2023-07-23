@@ -12,7 +12,7 @@
       <a class="navbar-brand" th:href="@{/auth/index}">Gestão de Eventos</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a class="nav-link text-white" th:href="@{/users}">Users</a></li>
+      <li><a class="nav-link text-white" th:href="@{/userModels}">Users</a></li>
 
       <li><a class="nav-link text-white" th:href="@{/eventos}">Eventos</a></li>
 
@@ -49,7 +49,7 @@
         <td th:text="${evento.data}"></td>
         <td th:text="${evento.capacidade_max + ' pessoas'}"></td>
         <td th:text="${evento.idCategoria.nome}"></td>
-        <td th:text="${evento.idUser.nome}"></td>
+        <td th:text="${evento.idUser.name}"></td>
       </tr>
       </tbody>
     </table>

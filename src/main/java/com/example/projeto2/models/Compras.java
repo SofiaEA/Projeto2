@@ -12,7 +12,7 @@ public class Compras {
     private Integer id_compra;
     @OneToOne
     @JoinColumn(name = "id_user")
-    private User id_user;
+    private UserModel id_user;
     @OneToOne
     @JoinColumn(name = "id_bilhete")
     private Bilhetes id_bilhete;
@@ -31,11 +31,11 @@ public class Compras {
         this.id_compra = id_compra;
     }
 
-    public User getId_user() {
+    public UserModel getId_user() {
         return id_user;
     }
 
-    public void setId_user(User id_user) {
+    public void setId_user(UserModel id_user) {
         this.id_user = id_user;
     }
 

@@ -25,7 +25,7 @@ public class Eventos {
     private Categorias id_categoria;
     @OneToOne
     @JoinColumn(name = "id_user")
-    private User id_user;
+    private UserModel id_user;
 
     @OneToMany(mappedBy = "eventos")
     private List<Bilhetes> bilhetes;
@@ -86,11 +86,11 @@ public class Eventos {
         this.id_categoria = id_categoria;
     }
 
-    public User getIdUser() {
+    public UserModel getIdUser() {
         return id_user;
     }
 
-    public void setIdUser(User id_user) {
+    public void setIdUser(UserModel id_user) {
         this.id_user = id_user;
     }
 

@@ -12,7 +12,7 @@ import java.util.Collections;
 
 @Entity(name = "users")
 @Table(name = "users")
-public class User implements UserDetails, Serializable {
+public class UserModel implements UserDetails, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -43,12 +43,20 @@ public class User implements UserDetails, Serializable {
     @Column(name = "enabled", nullable = false)
     private boolean enabled = true;
 
-    public User() {
+    public UserModel() {
     }
 
-    public User(String username, String password, UserRole userRole) {
+    public UserModel(String username, String password, UserRole userRole) {
         this.username = username;
         this.password = password;
+        this.userRole = userRole;
+    }
+
+    public UserModel(String name, String username, String password, String phoneNumber, UserRole userRole) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
         this.userRole = userRole;
     }
 
