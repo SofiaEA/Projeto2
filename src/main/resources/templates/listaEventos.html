@@ -79,7 +79,7 @@
         <td th:text="${listaEventos.descricao}"></td>
         <td th:text="${listaEventos.data}"></td>
         <td th:text="${listaEventos.capacidade_max + ' pessoas'}"></td>
-        <td th:text="${listaEventos.idCategoria.nome}"></td>
+        <td th:text="${listaEventos.idCategoria}"></td>
         <td><a class="h4 mr-3 styled-link"th:href="@{'/participanteEventos/listaEventos/listaBilhetes?id_evento=' + ${listaEventos.id_evento}}">Inscrever</a></td>
       </tr>
       </tbody>

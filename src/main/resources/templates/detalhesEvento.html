@@ -97,11 +97,10 @@
   <h1>Relatório do Evento</h1>
   <h2><span th:text="${evento.nome}"></span></h2>
   <h5>Local: <span th:text="${evento.local}"></span></h5>
-  <h5>Categoria: <span th:text="${evento.idCategoria.nome}"></span></h5>
+  <h5>Categoria: <span th:text="${evento.idCategoria}"></span></h5>
   <h5>Data: <span th:text="${evento.data}"></span></h5>
   <h5>Descrição: <span th:text="${evento.descricao}"></span></h5>
   <h5>Capacidade Máxima: <span th:text="${evento.capacidade_max}"></span></h5>
-  <h5>Criador: <span th:text="${evento.idUser.nome}"></span></h5>
 </div>
 
 <div style="margin-left: 40px; margin-right: 40px; margin-top: 20px">

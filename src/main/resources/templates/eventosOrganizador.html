@@ -77,7 +77,7 @@
                 <td th:text="${eventosOrganizador.descricao}"></td>
                 <td th:text="${eventosOrganizador.data}"></td>
                 <td th:text="${eventosOrganizador.capacidade_max + ' pessoas'}"></td>
-                <td th:text="${eventosOrganizador.idCategoria.nome}"></td>
+                <td th:text="${eventosOrganizador.idCategoria}"></td>
                 <td>
                     <a class="h4 styled-link" th:href="@{'/eventosOrganizador/edit/' + ${eventosOrganizador.id_evento}}">Editar</a>
                 </td>
