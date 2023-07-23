@@ -63,4 +63,3 @@ public class SecurityConfigurations {
         return new BCryptPasswordEncoder();
     }
 }
-//.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
