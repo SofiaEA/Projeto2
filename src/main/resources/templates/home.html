@@ -56,14 +56,6 @@
     <h1>Bem-Vindo!</h1>
     <br>
     <img src="/gestaoEventos.png" alt="Gestão de Eventos" width="700"> <br>
-
-    <p class="h3"> teste</p>
-    <p class="h3" th:text="${#authentication.authorities}"></p>
-    <p class="h3" th:text="${#authentication.getAuthorities()}"></p>
-    <p class="h3" th:text="${#authentication.getAuthorities().contains('PARTICIPANT')}"></p>
-    <div th:if="${#authentication.authorities.?[authority == 'PARTICIPANT']}"> OLA</div>
-    <p class="h3" th:text="${#authentication.getName()}"></p>
-
 </div>
 </body>
 </html>

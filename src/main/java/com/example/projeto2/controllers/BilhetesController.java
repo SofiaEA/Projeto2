@@ -1,20 +1,27 @@
 package com.example.projeto2.controllers;
 
 import com.example.projeto2.models.*;
+import com.example.projeto2.repository.UserRepository;
 import com.example.projeto2.services.*;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
 public class BilhetesController {
     @Resource(name = "bilhetesService")
     private bilhetes bilhetesService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private final eventos eventoService;
 
@@ -59,9 +66,12 @@ public class BilhetesController {
 
     @GetMapping("/eventosOrganizador/bilhetes/newBilhete")
     public ModelAndView getNewForm() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<UserModel> userDetails = userRepository.findByUsername(username);
+        UserModel id_user = userDetails.get();
         ModelAndView modelAndView = new ModelAndView("bilhete_form");
         modelAndView.addObject("bilhete", new Bilhetes());
-        List<Eventos> eventos = eventoService.getAllEventos();
+        List<Eventos> eventos = eventoService.getAllEventosOrganizador(id_user.getId());
         modelAndView.addObject("eventos", eventos);
         return modelAndView;
     }
@@ -87,27 +97,27 @@ public class BilhetesController {
 
 //    @GetMapping
 //    @PostMapping("/participanteEventos/comprarBilhetes")
-//    public ModelAndView confirmarCompra(@RequestParam("id_bilhete") int id_bilhete,
-//                                        @RequestParam("quantidade") int quantidade, RedirectAttributes ra) throws BilheteNotFoundException, UserNotFoundException {
+//    public ModelAndView confirmarCompra(@RequestParam("id_bilhete") int id_bilhete, @RequestParam("quantidade") int quantidade, RedirectAttributes ra) throws BilheteNotFoundException, UserNotFoundException {
 //        ModelAndView modelAndView = new ModelAndView();
 //        Bilhetes bilhete = bilhetesService.getBilheteById(id_bilhete);
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Optional<UserModel> userDetails = userRepository.findByUsername(username);
+//        UserModel user = userDetails.get();
 //
 //        if (quantidade <= 0) {
-//            modelAndView.setViewName("redirect:/comprarBilhetes");
+//            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
 //            ra.addFlashAttribute("mensagemErro", "A quantidade deve ser maior que 0.");
 //            return modelAndView;
 //        }
 //
 //        if (bilhete.getBilhetes_disp() < quantidade) {
-//            modelAndView.setViewName("redirect:/comprarBilhetes");
+//            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
 //            ra.addFlashAttribute("mensagemErro", "Não há bilhetes suficientes disponíveis!" );
 //            return modelAndView;
 //        }
 //
 //        bilhete.setBilhetes_disp(bilhete.getBilhetes_disp() - quantidade);
 //        bilhete.setBilhetes_comprados(bilhete.getBilhetes_comprados() + quantidade);
-//
-//        User user = userService.getUserById(8);
 //
 //        try {
 //            bilhetesService.save(bilhete);
@@ -125,10 +135,10 @@ public class BilhetesController {
 //            modelAndView.setViewName("redirect:/listaEventos");
 //            return modelAndView;
 //        } catch (Exception e) {
-//            modelAndView.setViewName("redirect:/comprarBilhetes");
+//            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
 //            ra.addFlashAttribute("mensagemErro", "Ocorreu um erro ao processar a compra.");
 //            return modelAndView;
 //        }
 //    }
-//
+
 }

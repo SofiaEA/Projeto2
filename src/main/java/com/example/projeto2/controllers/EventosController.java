@@ -58,8 +58,11 @@ public class EventosController {
 
     @GetMapping("/eventosOrganizador")
     public ModelAndView getEventosOrganizador() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<UserModel> userDetails = userRepository.findByUsername(username);
+        UserModel id_user = userDetails.get();
         ModelAndView modelAndView = new ModelAndView("eventosOrganizador");
-        List<Eventos> eventosOrganizador = eventosService.getAllEventosOrganizador();
+        List<Eventos> eventosOrganizador = eventosService.getAllEventosOrganizador(id_user.getId());
         modelAndView.addObject("eventosOrganizador", eventosOrganizador);
         return modelAndView;
     }

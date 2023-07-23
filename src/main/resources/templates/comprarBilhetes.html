@@ -99,8 +99,8 @@
 <div style="margin-left: 40px; margin-top: 20px; margin-right: 40px">
     <h5>Quantidade:</h5>
     <div>
-        <form th:action="@{/comprarBilhetes}" method="post">
-            <input type="hidden" name="id_bilhete" th:field="*{comprarBilhetes.id_bilhete}">
+        <form th:action="@{/participanteEventos/comprarBilhetes}" method="post">
+            <input type="hidden" name="id_bilhete" th:value="${comprarBilhetes.id_bilhete}">
             <input id="quantidadeInput" name="quantidade" type="number" class="form-control" required>
             <button type="submit" class="btn btn-primary m-2">Comprar</button>
         </form>
@@ -109,5 +109,6 @@
         [[${mensagemErro}]]
     </div>
 </div>
+
 </body>
 </html>

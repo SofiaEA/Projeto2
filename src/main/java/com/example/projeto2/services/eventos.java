@@ -1,5 +1,6 @@
 package com.example.projeto2.services;
 
+import com.example.projeto2.models.Bilhetes;
 import com.example.projeto2.models.Eventos;
 import com.example.projeto2.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class eventos {
         return eventos;
     }
 
-    public List<Eventos> getAllEventosOrganizador() {
-        List<Eventos> eventos = rep.findAll();
+    public List<Eventos> getAllEventosOrganizador(Integer id_user) {
+        List<Eventos> eventos = rep.findByUserId(id_user);
         return eventos;
     }
 
@@ -29,6 +30,9 @@ public class eventos {
         return eventos;
     }
 
+    public List<Eventos> getEventosDoUser(Integer id_user) {
+        return rep.findByUserId(id_user);
+    }
 
     public void save(Eventos evento) {
         rep.save(evento);
