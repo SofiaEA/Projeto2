@@ -1,10 +1,14 @@
 package com.example.projeto2.controllers;
 
+import com.example.projeto2.dtos.RegisterDTO;
 import com.example.projeto2.models.UserModel;
 import com.example.projeto2.models.UserRole;
+import com.example.projeto2.repository.UserRepository;
 import com.example.projeto2.services.UserNotFoundException;
 import com.example.projeto2.services.UserDetailsServiceImpl;
 import jakarta.annotation.Resource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -17,7 +21,6 @@ import java.util.List;
 public class UsersController {
     @Resource(name = "userService")
     private UserDetailsServiceImpl userService;
-
 
     @GetMapping("/users")
     public ModelAndView getUsers() {
@@ -33,7 +36,6 @@ public class UsersController {
         modelAndView.addObject("user", new UserModel());
         return modelAndView;
    }
-
 
     @PostMapping("/users/save")
     public ModelAndView saveUser(UserModel userModel, RedirectAttributes ra) {

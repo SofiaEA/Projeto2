@@ -44,25 +44,8 @@ public class AuthenticationController {
             modelAndView.setViewName("redirect:/app/home");
 
         } catch (AuthenticationException e) {
-            modelAndView.addObject("errorMessage", "Invalid Credentials");
+            modelAndView.addObject("errorMessage", "Login Inválido");
             modelAndView.setViewName("index");
-        }
-
-        return modelAndView;
-    }
-
-    @GetMapping("/logout")
-    public ModelAndView logout(HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        try {
-            request.logout();
-            SecurityContextHolder.clearContext();
-            modelAndView.setViewName("redirect:/login"); // Redireciona para a página de login após o logout
-        } catch (ServletException e) {
-            // Trate a exceção, se necessário
-            modelAndView.addObject("errorMessage", "Failed to logout");
-            modelAndView.setViewName("error"); // Página de erro, caso ocorra alguma falha no logout
         }
 
         return modelAndView;
