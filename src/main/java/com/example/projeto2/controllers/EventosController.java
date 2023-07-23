@@ -63,8 +63,6 @@ public class EventosController {
     public ModelAndView saveUser(Eventos evento, RedirectAttributes ra) {
         eventosService.save(evento);
         ModelAndView modelAndView = new ModelAndView("redirect:/eventosOrganizador");
-        List<Categorias> categorias = categoriasService.getAllCategorias();
-        modelAndView.addObject("categorias", categorias);
         ra.addFlashAttribute("message", "O evento foi adicionado com sucesso!");
         return modelAndView;
     }

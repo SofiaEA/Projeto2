@@ -1,10 +1,15 @@
 package com.example.projeto2.controllers;
 
+import com.example.projeto2.dtos.RegisterDTO;
 import com.example.projeto2.models.UserModel;
 import com.example.projeto2.models.UserRole;
+import com.example.projeto2.repository.UserRepository;
 import com.example.projeto2.services.UserNotFoundException;
 import com.example.projeto2.services.UserDetailsServiceImpl;
 import jakarta.annotation.Resource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -13,13 +18,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 
-@RestController
+@Controller
+@RequestMapping("/users")
 public class UsersController {
     @Resource(name = "userService")
     private UserDetailsServiceImpl userService;
 
+    private final UserRepository userRepository;
 
-    @GetMapping("/users")
+    public UsersController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @GetMapping("/")
     public ModelAndView getUsers() {
         ModelAndView modelAndView = new ModelAndView("users");
         List<UserModel> userModels = userService.getAllUsers();
@@ -28,31 +39,30 @@ public class UsersController {
         return modelAndView;
     }
 
-    @GetMapping("/users/newUser")
+    @GetMapping("/newUser")
     public ModelAndView getNewForm() {
         ModelAndView modelAndView = new ModelAndView("user_form");
         modelAndView.addObject("user", new UserModel());
         return modelAndView;
    }
 
+    @PostMapping("/save")
+    public ModelAndView saveUser(@ModelAttribute @Validated RegisterDTO data) {
+        ModelAndView modelAndView = new ModelAndView("users");
 
-    @PostMapping("/users/save")
-    public ModelAndView saveUser(UserModel userModel, RedirectAttributes ra) {
-        // isso nao faz sentido
-        if (userModel.getUserRole() == UserRole.MANAGER) {
-            userModel.setUserRole(UserRole.MANAGER);
-        } else if (userModel.getUserRole() == UserRole.ORGANIZER) {
-            userModel.setUserRole(UserRole.ORGANIZER);
-        } else if (userModel.getUserRole() == UserRole.PARTICIPANT) {
-            userModel.setUserRole(UserRole.PARTICIPANT);
+        if (this.userRepository.findByUsername(data.name()).isPresent()) {
+            modelAndView.addObject("errorMessage", "Esse email já existe!");
+            return modelAndView;
         }
-        userService.save(userModel);
-        ModelAndView modelAndView = new ModelAndView("redirect:/users");
-        ra.addFlashAttribute("message", "O utilizador foi adicionado com sucesso!");
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+        UserModel newUserModel = new UserModel(data.name(), data.username(), encryptedPassword, data.phoneNumber(), UserRole.valueOf(data.userRole().toUpperCase()));
+
+        userService.save(newUserModel);
+        modelAndView.addObject("message", "O utilizador foi adicionado com sucesso!");
         return modelAndView;
     }
 
-    @GetMapping("/users/edit/{id_user}")
+    @GetMapping("/edit/{id_user}")
     public ModelAndView showEditForm(@PathVariable("id_user") Integer id_user) throws UserNotFoundException {
         UserModel userModel = userService.getUserById(id_user);
         ModelAndView modelAndView = new ModelAndView("user_form");

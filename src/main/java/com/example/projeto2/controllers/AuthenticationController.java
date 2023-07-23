@@ -1,6 +1,7 @@
 package com.example.projeto2.controllers;
 
 import com.example.projeto2.dtos.AuthenticationDTO;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -44,10 +45,11 @@ public class AuthenticationController {
             modelAndView.setViewName("redirect:/app/home");
 
         } catch (AuthenticationException e) {
-            modelAndView.addObject("errorMessage", "Invalid Credentials");
+            modelAndView.addObject("errorMessage", "Login Inválido");
             modelAndView.setViewName("index");
         }
 
         return modelAndView;
     }
+
 }

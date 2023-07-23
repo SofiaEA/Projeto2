@@ -20,11 +20,11 @@ public class Eventos {
     private Integer capacidade_max;
     @Column(nullable = false)
     private String data;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_categoria")
     private Categorias id_categoria;
-    @OneToOne
-    @JoinColumn(name = "id_user")
+    @ManyToOne
+    @JoinColumn(name = "id")
     private UserModel id_user;
 
     @OneToMany(mappedBy = "eventos")

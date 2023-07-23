@@ -76,7 +76,7 @@
   <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" th:href="@{/auth/index}">Gestão de Eventos</a>
+        <a class="navbar-brand" th:href="@{/app/home}">Gestão de Eventos</a>
       </div>
     </div>
   </nav>
@@ -121,7 +121,7 @@
       <div class="form-group-row">
         <label class="col-sm-4 col-form-label">Categoria:</label>
         <div class="col-sm-10">
-          <select th:field="*{idCategoria}" required class="form-control">
+          <select th:field="*{idCategoria.id_categoria}" required class="form-control">
             <option value="">Selecione uma opção</option>
             <option value="1">Eventos de empresas e eventos corporativos</option>
             <option value="2">Eventos com causa e de angariação</option>
@@ -131,12 +131,6 @@
             <option value="6">Reuniões ou convenções</option>
             <option value="7">Espetáculos e eventos de lazer</option>
           </select>
-        </div>
-      </div>
-      <div class="form-group-row">
-        <label class="col-sm-4 col-form-label">User:</label>
-        <div class="col-sm-8">
-          <input type="number" th:field="*{idUser}" class="form-control" required placeholder="Insere o teu ID">
         </div>
       </div>
       <div class="text-center">

@@ -7,53 +7,45 @@
 </head>
 <body>
 <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/auth/index}">Gestão de Eventos</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a class="nav-link text-white" th:href="@{/users}">UserManagerUsers</a></li>
-
-            <li><a class="nav-link text-white" th:href="@{/eventos}">UserManagerEventos</a></li>
-
-            <li><a class="nav-link text-white" th:href="@{/eventosOrganizador}">OrganizadorEventos</a></li>
-
-            <li><a class="nav-link text-white" th:href="@{/eventosOrganizador/bilhetes}">OrganizadorBilhetes</a></li>
-
-            <li><a class="nav-link text-white" th:href="@{/participanteEventos/listaEventos}">ParticipanteEventos</a></li>
-
-            <li><a class="nav-link text-white" th:href="@{/participanteEventos/listaBilhetesComprados}">ParticipanteBilhetesComprados</a></li>
-
-            <li><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
-
-        </ul>
+    <div class="navbar-header">
+        <a class="navbar-brand" th:href="@{/app/home}">Gestão de Eventos</a>
     </div>
-</nav>
-<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
     <div class="container-fluid">
-        <!-- Restante da navbar -->
-        <ul class="nav navbar-nav">
-            <li th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('MANAGER'))}">
+        <ul class="nav navbar-nav ml-auto"> <!-- Utilizando 'ml-auto' para alinhar à direita -->
+            <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('MANAGER'))}">
                 <a class="nav-link text-white" th:href="@{/users}">Users</a>
+            </li>
+            <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('MANAGER'))}">
                 <a class="nav-link text-white" th:href="@{/eventos}">Eventos</a>
             </li>
 
             <!-- Exibir opções específicas para o papel 'ORGANIZADOR' -->
-            <li th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('ORGANIZER'))}">
+            <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('ORGANIZER'))}">
                 <a class="nav-link text-white" th:href="@{/eventosOrganizador}">Eventos</a>
+            </li>
+            <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('ORGANIZER'))}">
                 <a class="nav-link text-white" th:href="@{/eventosOrganizador/bilhetes}">Bilhetes</a>
             </li>
 
             <!-- Exibir opções específicas para o papel 'PARTICIPANTE' -->
-            <li th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('PARTICIPANT'))}">
+            <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('PARTICIPANT'))}">
                 <a class="nav-link text-white" th:href="@{/participanteEventos/listaEventos}">Eventos</a>
+            </li>
+            <li class="nav-item" th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('PARTICIPANT'))}">
                 <a class="nav-link text-white" th:href="@{/participanteEventos/listaBilhetesComprados}">Bilhetes Comprados</a>
             </li>
 
-            <li><a class="nav-link text-white" th:href="@{/logout}">Logout</a></li>
+            <li class="nav-item">
+                <a class="nav-link text-white" th:href="@{/app/perfil}">Perfil</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" th:href="@{/logout}">Logout</a>
+            </li>
         </ul>
     </div>
 </nav>
+
 
 <style>
     .text-white {
@@ -70,6 +62,7 @@
     <p class="h3" th:text="${#authentication.getAuthorities()}"></p>
     <p class="h3" th:text="${#authentication.getAuthorities().contains('PARTICIPANT')}"></p>
     <div th:if="${#authentication.authorities.?[authority == 'PARTICIPANT']}"> OLA</div>
+    <p class="h3" th:text="${#authentication.getName()}"></p>
 
 </div>
 </body>

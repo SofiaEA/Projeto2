@@ -22,9 +22,4 @@ public class categorias {
         return savedCategorias;
     }
 
-    public List<Categorias> getAllCategorias() {
-        List<Categorias> categorias = rep.findAll();
-        return categorias;
-    }
-
 }

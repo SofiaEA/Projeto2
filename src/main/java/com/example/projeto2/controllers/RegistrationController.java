@@ -29,14 +29,14 @@ public class RegistrationController {
     public ModelAndView register(@ModelAttribute @Validated RegisterDTO data) {
         ModelAndView modelAndView = new ModelAndView("index");
         if (this.userRepository.findByUsername(data.name()).isPresent()) {
-            modelAndView.addObject("errorMessage", "Username already exists!");
+            modelAndView.addObject("errorMessage", "Esse email já existe!");
             return modelAndView;
         }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         UserModel newUserModel = new UserModel(data.name(), data.username(), encryptedPassword, data.phoneNumber(), UserRole.valueOf(data.userRole().toUpperCase()));
         this.userRepository.save(newUserModel);
-        modelAndView.addObject("successMessage", "Registration successful. You can now login.");
+        modelAndView.addObject("successMessage", "Conta criada com sucesso!!");
         return modelAndView;
     }
 }
