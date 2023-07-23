@@ -19,7 +19,6 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/users")
 public class UsersController {
     @Resource(name = "userService")
     private UserDetailsServiceImpl userService;
@@ -30,7 +29,7 @@ public class UsersController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping("/users")
     public ModelAndView getUsers() {
         ModelAndView modelAndView = new ModelAndView("users");
         List<UserModel> userModels = userService.getAllUsers();
@@ -39,14 +38,14 @@ public class UsersController {
         return modelAndView;
     }
 
-    @GetMapping("/newUser")
+    @GetMapping("users/newUser")
     public ModelAndView getNewForm() {
         ModelAndView modelAndView = new ModelAndView("user_form");
         modelAndView.addObject("user", new UserModel());
         return modelAndView;
    }
 
-    @PostMapping("/save")
+    @PostMapping("users/save")
     public ModelAndView saveUser(@ModelAttribute @Validated RegisterDTO data) {
         ModelAndView modelAndView = new ModelAndView("users");
 
@@ -59,10 +58,11 @@ public class UsersController {
 
         userService.save(newUserModel);
         modelAndView.addObject("message", "O utilizador foi adicionado com sucesso!");
+        modelAndView.setViewName("redirect:/users");
         return modelAndView;
     }
 
-    @GetMapping("/edit/{id_user}")
+    @GetMapping("users/edit/{id_user}")
     public ModelAndView showEditForm(@PathVariable("id_user") Integer id_user) throws UserNotFoundException {
         UserModel userModel = userService.getUserById(id_user);
         ModelAndView modelAndView = new ModelAndView("user_form");

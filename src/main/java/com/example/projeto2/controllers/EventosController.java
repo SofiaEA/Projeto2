@@ -1,21 +1,26 @@
 package com.example.projeto2.controllers;
 
-import com.example.projeto2.models.Bilhetes;
-import com.example.projeto2.models.Categorias;
-import com.example.projeto2.models.Compras;
-import com.example.projeto2.models.Eventos;
+import com.example.projeto2.models.*;
+import com.example.projeto2.repository.UserRepository;
 import com.example.projeto2.services.*;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class EventosController {
     @Resource(name = "eventosService")
     private eventos eventosService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private final bilhetes bilhetesService;
 
@@ -61,10 +66,23 @@ public class EventosController {
 
     @PostMapping("/eventosOrganizador/save")
     public ModelAndView saveUser(Eventos evento, RedirectAttributes ra) {
-        eventosService.save(evento);
-        ModelAndView modelAndView = new ModelAndView("redirect:/eventosOrganizador");
-        ra.addFlashAttribute("message", "O evento foi adicionado com sucesso!");
-        return modelAndView;
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<UserModel> userDetails = userRepository.findByUsername(username);
+
+        if (userDetails.isPresent()) {
+            UserModel user = userDetails.get();
+            evento.setIdUser(user);
+
+            eventosService.save(evento);
+
+            ModelAndView modelAndView = new ModelAndView("redirect:/eventosOrganizador");
+            ra.addFlashAttribute("message", "O evento foi adicionado com sucesso!");
+            return modelAndView;
+        } else {
+            // Tratar o cenário em que o usuário logado não é encontrado
+            // Redirecionar para uma página de erro ou fazer qualquer tratamento apropriado
+            return new ModelAndView("redirect:/pagina-de-erro");
+        }
     }
 
     @GetMapping("/eventosOrganizador/newEvento")

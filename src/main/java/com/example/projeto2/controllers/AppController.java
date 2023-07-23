@@ -1,5 +1,6 @@
 package com.example.projeto2.controllers;
 
+import com.example.projeto2.models.UserModel;
 import com.example.projeto2.repository.UserRepository;
 import com.example.projeto2.services.UserDetailsServiceImpl;
 import jakarta.annotation.Resource;
@@ -20,9 +21,6 @@ import java.util.Optional;
 @RequestMapping("/app")
 public class AppController {
 
-    @Resource(name = "userService")
-    private UserDetailsServiceImpl userService;
-
     @Autowired
     private UserRepository userRepository;
 
@@ -36,7 +34,7 @@ public class AppController {
     @GetMapping("/perfil")
     public ModelAndView perfil() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<UserDetails> user = userRepository.findByUsername(username);
+        Optional<UserModel> user = userRepository.findByUsername(username);
 
         ModelAndView modelAndView = new ModelAndView("perfil");
         modelAndView.addObject("user", user);

@@ -2,13 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Lista de Eventos</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-</head>
-<head>
   <title>Perfil</title>
-  <style>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 
+  <style>
     .text-white {
       color: #fff;
     }
@@ -50,7 +47,6 @@
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
     }
-
   </style>
 </head>
 <body>
@@ -84,17 +80,22 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link text-white" th:href="@{/app/perfil}">Perfil</a>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link text-white" th:href="@{/logout}">Logout</a>
       </li>
     </ul>
   </div>
 </nav>
-<h1>Perfil do Usuário</h1>
-<div class="profile-info">
-  <p class="h3">Email: <span th:text="${user.isPresent() ? user.get().username : ''}"></span></p>
-  <p class="h3">Nome: <span th:text="${user.isPresent() ? user.get().name : ''}"></span></p>
-  <p class="h3">Telemóvel: <span th:text="${user.isPresent() ? user.get().phoneNumber : ''}"></span></p>
-  <p class="h3">Tipo de Usuário: <span th:text="${user.isPresent() ? user.get().userRole : ''}"></span></p>
+<div style="margin-left: 40px; margin-top: 20px">
+  <h1>Perfil</h1>
+  <h3>Nome: <span th:text="${user.isPresent() ? user.get().id : ''}"></span></h3>
+  <h3>Nome: <span th:text="${user.isPresent() ? user.get().name : ''}"></span></h3>
+  <h5>Email: <span th:text="${user.isPresent() ? user.get().username : ''}"></span></h5>
+  <h5>Telemóvel: <span th:text="${user.isPresent() ? user.get().phoneNumber : ''}"></span></h5>
+  <h5>Tipo de Usuário: <span th:text="${user.isPresent() ? user.get().userRole : ''}"></span></h5>
 </div>
 </body>
 </html>
