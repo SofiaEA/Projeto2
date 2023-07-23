@@ -37,14 +37,6 @@ public class UsersController {
 
     @PostMapping("/users/save")
     public ModelAndView saveUser(UserModel userModel, RedirectAttributes ra) {
-        // isso nao faz sentido
-        if (userModel.getUserRole() == UserRole.MANAGER) {
-            userModel.setUserRole(UserRole.MANAGER);
-        } else if (userModel.getUserRole() == UserRole.ORGANIZER) {
-            userModel.setUserRole(UserRole.ORGANIZER);
-        } else if (userModel.getUserRole() == UserRole.PARTICIPANT) {
-            userModel.setUserRole(UserRole.PARTICIPANT);
-        }
         userService.save(userModel);
         ModelAndView modelAndView = new ModelAndView("redirect:/users");
         ra.addFlashAttribute("message", "O utilizador foi adicionado com sucesso!");

@@ -2,11 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Adicionar Novo Utilizador</title>
+    <title>Registar</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <style>
         body {
             background-color: #f8f9fa;
+        }
+
+        .styled-link {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid #2fb6b6;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #2fb6b6;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .styled-link:hover {
+            background-color: #8ae1db;
+            color: #fff;
+        }
+        .styled-linke {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid #858585;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #464646;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .styled-linke:hover {
+            background-color: #646464;
+            color: #fff;
         }
 
         .container {
@@ -43,34 +72,6 @@
             padding: 10px;
         }
 
-        .styled-link {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid #2fb6b6;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #2fb6b6;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .styled-link:hover {
-            background-color: #8ae1db;
-            color: #fff;
-        }
-        .styled-linke {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid #858585;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #464646;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .styled-linke:hover {
-            background-color: #646464;
-            color: #fff;
-        }
         select.form-control {
             height: 45px;
         }
@@ -79,50 +80,49 @@
     <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" th:href="@{/auth/index}">Gestão de Eventos</a>
+                <a class="navbar-brand" th:href="@{/app/home}">Gestão de Eventos</a>
             </div>
         </div>
     </nav>
 </head>
 <body>
 <div class="container">
-    <h2 class="text-center">Adicionar um novo utilizador</h2>
+    <h2 class="text-center">Adicionar Utilizador</h2>
     <div>
-        <form th:action="@{/userModels/save}" method="post" th:object="${userModel}">
-            <input type="hidden" th:field="*{id_user}">
+        <form th:action="@{/users/save}" method="post">
             <div class="border border-secondary rounded p-3">
                 <div class="form-group-row">
-                    <label class="col-sm-4 col form label">Nome:</label>
+                    <label class="col-sm-4 col form label" for="name">Nome:</label>
                     <div class="col-sm-8">
-                        <input type="text" th:field="*{nome}" class="form-control" required minlength="2">
+                        <input id="name" type="text" name="name" class="form-control" required minlength="2">
                     </div>
                 </div>
                 <div class="form-group-row">
-                    <label class="col-sm-4 col form label">Email:</label>
+                    <label class="col-sm-4 col form label" for="username">Email:</label>
                     <div class="col-sm-8">
-                        <input type="email" th:field="*{username}" class="form-control" required minlength="8">
+                        <input id="username" type="email" name="username" class="form-control" required minlength="8">
                     </div>
                 </div>
                 <div class="form-group-row">
-                    <label class="col-sm-4 col form label">Password:</label>
+                    <label class="col-sm-4 col form label" for="password">Password:</label>
                     <div class="col-sm-8">
-                        <input type="password" th:field="*{password}" class="form-control" required minlength="7">
+                        <input id="password" type="password" name="password" class="form-control" required minlength="7">
                     </div>
                 </div>
                 <div class="form-group-row">
-                    <label class="col-sm-4 col form label">Telemóvel:</label>
+                    <label class="col-sm-4 col form label" for="phoneNumber">Telemóvel:</label>
                     <div class="col-sm-8">
-                        <input type="number" th:field="*{telemovel}" class="form-control" required minlength="9">
+                        <input type="number" id="phoneNumber" name="phoneNumber" class="form-control" required minlength="9">
                     </div>
                 </div>
                 <div class="form-group-row">
-                    <label class="col-sm-4 col-form-label">Tipo de User:</label>
+                    <label class="col-sm-4 col-form-label" for="userRole">Tipo de User:</label>
                     <div class="col-sm-8">
-                        <select th:field="*{tipo_user}" required class="form-control">
+                        <select id="userRole" name="userRole" required class="form-control">
                             <option value="">Selecione uma opção</option>
-                            <option th:value="'1'" th:text="UserManager"></option>
-                            <option th:value="'2'" th:text="Organizador"></option>
-                            <option th:value="'3'" th:text="Participante"></option>
+                            <option value="manager"> Manager</option>
+                            <option value="organizer"> Organizador</option>
+                            <option value="participant">Participante</option>
                         </select>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
 
 <script type="text/javascript">
     function cancelForm() {
-        window.location = "[[@{/userModels}]]";
+        window.location = "[[@{/users}]]";
     }
 </script>
 

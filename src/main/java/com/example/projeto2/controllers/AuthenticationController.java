@@ -1,6 +1,7 @@
 package com.example.projeto2.controllers;
 
 import com.example.projeto2.dtos.AuthenticationDTO;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,4 +50,22 @@ public class AuthenticationController {
 
         return modelAndView;
     }
+
+    @GetMapping("/logout")
+    public ModelAndView logout(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        try {
+            request.logout();
+            SecurityContextHolder.clearContext();
+            modelAndView.setViewName("redirect:/login"); // Redireciona para a página de login após o logout
+        } catch (ServletException e) {
+            // Trate a exceção, se necessário
+            modelAndView.addObject("errorMessage", "Failed to logout");
+            modelAndView.setViewName("error"); // Página de erro, caso ocorra alguma falha no logout
+        }
+
+        return modelAndView;
+    }
+
 }
