@@ -1,11 +1,14 @@
 package com.example.projeto2.controllers;
 
+import com.example.projeto2.dtos.CompraDTO;
 import com.example.projeto2.models.*;
 import com.example.projeto2.repository.UserRepository;
 import com.example.projeto2.services.*;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -75,6 +78,7 @@ public class BilhetesController {
         modelAndView.addObject("eventos", eventos);
         return modelAndView;
     }
+
     @PostMapping("/eventosOrganizador/bilhetes/save")
     public ModelAndView saveBilhete(@ModelAttribute("bilhete") Bilhetes bilhete, RedirectAttributes ra) {
         bilhete.setBilhetes_disp(bilhete.getNum_bilhetes());
@@ -95,35 +99,42 @@ public class BilhetesController {
         return modelAndView;
     }
 
-/*    @GetMapping
     @PostMapping("/participanteEventos/comprarBilhetes")
-    public ModelAndView confirmarCompra(@PathVariable("id_bilhete") Integer id_bilhete, @RequestParam("quantidade") Integer quantidade, RedirectAttributes ra) throws BilheteNotFoundException, UserNotFoundException {
-        ModelAndView modelAndView = new ModelAndView();
-        Bilhetes bilhete = bilhetesService.getBilheteById(id_bilhete);
+    public ModelAndView confirmarCompra(@ModelAttribute @Validated CompraDTO compraDTO, BindingResult result, RedirectAttributes ra) throws BilheteNotFoundException, UserNotFoundException {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<UserModel> userDetails = userRepository.findByUsername(username);
         UserModel user = userDetails.get();
-
-        if (quantidade <= 0) {
-            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
-            ra.addFlashAttribute("mensagemErro", "A quantidade deve ser maior que 0.");
+        if (result.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("/participanteEventos/comprarBilhetes");
+            modelAndView.addObject("mensagemErro", "Dados inválidos!");
             return modelAndView;
         }
 
-        if (bilhete.getBilhetes_disp() < quantidade) {
-            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
-            ra.addFlashAttribute("mensagemErro", "Não há bilhetes suficientes disponíveis!" );
-            return modelAndView;
-        }
-
-        bilhete.setBilhetes_disp(bilhete.getBilhetes_disp() - quantidade);
-        bilhete.setBilhetes_comprados(bilhete.getBilhetes_comprados() + quantidade);
+        Integer idBilhete = compraDTO.id_bilhete();
+        Integer quantidade = compraDTO.quantidade();
 
         try {
+            Bilhetes bilhete = bilhetesService.getBilheteById(idBilhete);
+
+            if (quantidade <= 0) {
+                ModelAndView modelAndView = new ModelAndView("comprarBilhetes");
+                modelAndView.addObject("mensagemErro", "A quantidade deve ser maior que 0.");
+                return modelAndView;
+            }
+
+            if (bilhete.getBilhetes_disp() < quantidade) {
+                ModelAndView modelAndView = new ModelAndView("comprarBilhetes");
+                modelAndView.addObject("mensagemErro", "Não há bilhetes suficientes disponíveis!");
+                return modelAndView;
+            }
+
+            bilhete.setBilhetes_disp(bilhete.getBilhetes_disp() - quantidade);
+            bilhete.setBilhetes_comprados(bilhete.getBilhetes_comprados() + quantidade);
+
             bilhetesService.save(bilhete);
 
             Compras compra = new Compras();
-            compra.setId_user(user); // Defina o usuário logado na compra
+            compra.setId_user(user);
             compra.setId_bilhete(bilhete);
             compra.setNum_bilhetes(quantidade);
             compra.setTotal_preco(bilhete.getPrecototal() * quantidade);
@@ -131,13 +142,15 @@ public class BilhetesController {
 
             comprasService.save(compra);
 
+
             ra.addFlashAttribute("mensagemCompra", "Compra efetuada com sucesso! Bilhetes Comprados: " + quantidade);
-            modelAndView.setViewName("redirect:/listaEventos");
+            ModelAndView modelAndView = new ModelAndView("redirect:/participanteEventos/listaEventos");
             return modelAndView;
+
         } catch (Exception e) {
-            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
-            ra.addFlashAttribute("mensagemErro", "Ocorreu um erro ao processar a compra.");
+            ModelAndView modelAndView = new ModelAndView("comprarBilhetes");
+            modelAndView.addObject("mensagemErro", "Ocorreu um erro ao processar a compra.");
             return modelAndView;
         }
-    }*/
+    }
 }
