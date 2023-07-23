@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TipoBilhetesController {
     @Resource(name = "tipoBilhetesService")
     private tipoBilhetes tipoBilhetesService;
-    //@GetMapping("/favourites")
-    //public EnvelopeDTO<ProductSimpleDTO> getFavourites(final @RequestParam int id, final @RequestParam int offset, final @RequestParam int numItems)
-    //@PostMapping("/password/recover/confirm/{customer_id}")
-    //public boolean confirmRecoverPassword(final @PathVariable int customer_id);
 
     @PostMapping("/addTipoBilhete")
     public TipoBilhetes addTipoBilhete(final @RequestParam String nome) {

@@ -21,13 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("auth")
 public class AuthenticationController {
 
-
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationController(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
-
 
     @PostMapping("/login")
     public ModelAndView login(@ModelAttribute @Validated AuthenticationDTO data, BindingResult bindingResult, HttpServletRequest request) {

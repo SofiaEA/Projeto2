@@ -2,155 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registar</title>
+    <title>Login</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .styled-link {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid #2fb6b6;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #2fb6b6;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .styled-link:hover {
-            background-color: #8ae1db;
-            color: #fff;
-        }
-        .styled-linke {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid #858585;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #464646;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .styled-linke:hover {
-            background-color: #646464;
-            color: #fff;
-        }
-
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding-top: 30px;
-        }
-
-        h2 {
-            color: #333;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-
-        form {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 20px;
-        }
-
-        .form-group-row {
-            margin-bottom: 20px;
-        }
-
-        .form label {
-            font-weight: bold;
-        }
-
-        .form-control {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-        }
-
-        select.form-control {
-            height: 45px;
-        }
-
-        .styled-link {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid #2fb6b6;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #2fb6b6;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .styled-link:hover {
-            background-color: #8ae1db;
-            color: #fff;
-        }
-        .styled-linke {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid #858585;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #464646;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .styled-linke:hover {
-            background-color: #646464;
-            color: #fff;
-        }
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding-top: 30px;
-        }
-
-        h2 {
-            color: #333;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-
-        form {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 20px;
-        }
-
-        .form-group-row {
-            margin-bottom: 20px;
-        }
-
-        .form label {
-            font-weight: bold;
-        }
-
-        .form-control {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-        }
-
-        select.form-control {
-            height: 45px;
-        }
-
-    </style>
     <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" th:href="@{/app/home}">Gestão de Eventos</a>
+                <a class="navbar-brand" th:href="@{/index}">Gestão de Eventos</a>
             </div>
         </div>
     </nav>
@@ -196,6 +53,149 @@
         </div>
     </div>
 </div>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .styled-link {
+        display: inline-block;
+        padding: 10px 20px;
+        border: 1px solid #2fb6b6;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #2fb6b6;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .styled-link:hover {
+        background-color: #8ae1db;
+        color: #fff;
+    }
+    .styled-linke {
+        display: inline-block;
+        padding: 10px 20px;
+        border: 1px solid #858585;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #464646;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .styled-linke:hover {
+        background-color: #646464;
+        color: #fff;
+    }
+
+    .container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+
+    h2 {
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    form {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+    }
+
+    .form-group-row {
+        margin-bottom: 20px;
+    }
+
+    .form label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    select.form-control {
+        height: 45px;
+    }
+
+    .styled-link {
+        display: inline-block;
+        padding: 10px 20px;
+        border: 1px solid #2fb6b6;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #2fb6b6;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .styled-link:hover {
+        background-color: #8ae1db;
+        color: #fff;
+    }
+    .styled-linke {
+        display: inline-block;
+        padding: 10px 20px;
+        border: 1px solid #858585;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #464646;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .styled-linke:hover {
+        background-color: #646464;
+        color: #fff;
+    }
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+
+    h2 {
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    form {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+    }
+
+    .form-group-row {
+        margin-bottom: 20px;
+    }
+
+    .form label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    select.form-control {
+        height: 45px;
+    }
+
+</style>
 </body>
 </html>
 

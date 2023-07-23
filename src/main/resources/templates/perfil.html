@@ -9,44 +9,6 @@
     .text-white {
       color: #fff;
     }
-
-    .styled-link {
-      display: inline-block;
-      padding: 10px 20px;
-      border: 1px solid #2fb6b6;
-      border-radius: 5px;
-      text-decoration: none;
-      color: #2fb6b6;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .styled-link:hover {
-      background-color: #8ae1db;
-      color: #fff;
-    }
-    .search-form {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    .search-container {
-      width: 500px;
-    }
-
-    .search-container .form-control {
-      width: 100%;
-    }
-
-
-    .form-control {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    .btn-primary {
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-    }
   </style>
 </head>
 <body>
@@ -84,7 +46,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link text-white" th:href="@{/logout}">Logout</a>
+        <a class="nav-link text-white" th:href="@{/auth/logout}">Logout</a>
       </li>
     </ul>
   </div>

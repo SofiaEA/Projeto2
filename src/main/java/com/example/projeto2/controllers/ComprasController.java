@@ -20,7 +20,6 @@ public class ComprasController {
     @Autowired
     private UserRepository userRepository;
 
-
     @GetMapping("/participanteEventos/listaBilhetesComprados")
     public ModelAndView getAllCompras() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
