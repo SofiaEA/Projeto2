@@ -91,7 +91,6 @@
 </nav>
 <div style="margin-left: 40px; margin-top: 20px">
   <h1>Perfil</h1>
-  <h3>Nome: <span th:text="${user.isPresent() ? user.get().id : ''}"></span></h3>
   <h3>Nome: <span th:text="${user.isPresent() ? user.get().name : ''}"></span></h3>
   <h5>Email: <span th:text="${user.isPresent() ? user.get().username : ''}"></span></h5>
   <h5>Telemóvel: <span th:text="${user.isPresent() ? user.get().phoneNumber : ''}"></span></h5>

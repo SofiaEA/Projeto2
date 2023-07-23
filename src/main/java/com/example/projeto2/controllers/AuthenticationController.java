@@ -52,4 +52,8 @@ public class AuthenticationController {
         return modelAndView;
     }
 
+    @GetMapping("/logout")
+    public ModelAndView getNewForm() {
+        return new ModelAndView("index");
+    }
 }
