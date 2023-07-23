@@ -18,7 +18,7 @@ public class Bilhetes {
     @ManyToOne
     @JoinColumn(name = "id_evento")
     private Eventos eventos;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_tipo_bilhetes")
     private TipoBilhetes id_tipo_bilhetes;
 

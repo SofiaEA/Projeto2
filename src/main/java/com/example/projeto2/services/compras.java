@@ -27,4 +27,9 @@ public class compras {
         return rep.findByEventoId(id_evento);
     }
 
+    public List<Compras> getAllComprasUser(Integer id_user) {
+        List<Compras> compras = rep.findByUserId(id_user);
+        return compras;
+    }
+
 }

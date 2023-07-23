@@ -10,10 +10,10 @@ public class Compras {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_compra;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_user")
     private UserModel id_user;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_bilhete")
     private Bilhetes id_bilhete;
     @Column(nullable = false)

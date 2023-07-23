@@ -29,5 +29,5 @@ VALUES ('Marta da Conceição', 'martazao@ipvc.pt', '$2a$10$W28BVhcE6tZlWco5/Wtq
 INSERT INTO eventos (nome, data, local, descricao, capacidade_max, id_categoria, id)
 VALUES ('Corrida de Karts', '2023-07-29', 'Viana do Castelo', 'Corrida de Karts', 55, 3, 3),
        ('Festa do Pijama', '2023-07-25', 'Algarve', 'Pijama Party', 44, 7, 3),
-       ('Festa da Sardinha', '2023-08-09', 'Barcelos', 'Sardinha para todos', 74, 2, 3);
+       ('Festa da Sardinha', '2023-08-09', 'Barcelos', 'Sardinha para todos', 74, 2, 4);
 

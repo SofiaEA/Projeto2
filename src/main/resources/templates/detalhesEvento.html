@@ -153,7 +153,7 @@
       <tbody>
       <tr th:each="compra : ${compras}">
         <td th:text="${compra.id_bilhete.id_evento.nome}"></td>
-        <td th:text="${compra.id_user.nome}"></td>
+        <td th:text="${compra.id_user.name}"></td>
         <td th:text="${compra.id_bilhete.id_tipo_bilhetes.nome}"></td>
         <td th:text="${compra.id_bilhete.precototal}"></td>
         <td th:text="${compra.num_bilhetes}"></td>

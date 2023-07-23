@@ -95,50 +95,49 @@ public class BilhetesController {
         return modelAndView;
     }
 
-//    @GetMapping
-//    @PostMapping("/participanteEventos/comprarBilhetes")
-//    public ModelAndView confirmarCompra(@RequestParam("id_bilhete") int id_bilhete, @RequestParam("quantidade") int quantidade, RedirectAttributes ra) throws BilheteNotFoundException, UserNotFoundException {
-//        ModelAndView modelAndView = new ModelAndView();
-//        Bilhetes bilhete = bilhetesService.getBilheteById(id_bilhete);
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        Optional<UserModel> userDetails = userRepository.findByUsername(username);
-//        UserModel user = userDetails.get();
-//
-//        if (quantidade <= 0) {
-//            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
-//            ra.addFlashAttribute("mensagemErro", "A quantidade deve ser maior que 0.");
-//            return modelAndView;
-//        }
-//
-//        if (bilhete.getBilhetes_disp() < quantidade) {
-//            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
-//            ra.addFlashAttribute("mensagemErro", "Não há bilhetes suficientes disponíveis!" );
-//            return modelAndView;
-//        }
-//
-//        bilhete.setBilhetes_disp(bilhete.getBilhetes_disp() - quantidade);
-//        bilhete.setBilhetes_comprados(bilhete.getBilhetes_comprados() + quantidade);
-//
-//        try {
-//            bilhetesService.save(bilhete);
-//
-//            Compras compra = new Compras();
-//            compra.setId_user(user); // Defina o usuário logado na compra
-//            compra.setId_bilhete(bilhete);
-//            compra.setNum_bilhetes(quantidade);
-//            compra.setTotal_preco(bilhete.getPrecototal() * quantidade);
-//            compra.setData_compra(new Timestamp(System.currentTimeMillis()));
-//
-//            comprasService.save(compra);
-//
-//            ra.addFlashAttribute("mensagemCompra", "Compra efetuada com sucesso! Bilhetes Comprados: " + quantidade);
-//            modelAndView.setViewName("redirect:/listaEventos");
-//            return modelAndView;
-//        } catch (Exception e) {
-//            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
-//            ra.addFlashAttribute("mensagemErro", "Ocorreu um erro ao processar a compra.");
-//            return modelAndView;
-//        }
-//    }
+/*    @GetMapping
+    @PostMapping("/participanteEventos/comprarBilhetes")
+    public ModelAndView confirmarCompra(@PathVariable("id_bilhete") Integer id_bilhete, @RequestParam("quantidade") Integer quantidade, RedirectAttributes ra) throws BilheteNotFoundException, UserNotFoundException {
+        ModelAndView modelAndView = new ModelAndView();
+        Bilhetes bilhete = bilhetesService.getBilheteById(id_bilhete);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<UserModel> userDetails = userRepository.findByUsername(username);
+        UserModel user = userDetails.get();
 
+        if (quantidade <= 0) {
+            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
+            ra.addFlashAttribute("mensagemErro", "A quantidade deve ser maior que 0.");
+            return modelAndView;
+        }
+
+        if (bilhete.getBilhetes_disp() < quantidade) {
+            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
+            ra.addFlashAttribute("mensagemErro", "Não há bilhetes suficientes disponíveis!" );
+            return modelAndView;
+        }
+
+        bilhete.setBilhetes_disp(bilhete.getBilhetes_disp() - quantidade);
+        bilhete.setBilhetes_comprados(bilhete.getBilhetes_comprados() + quantidade);
+
+        try {
+            bilhetesService.save(bilhete);
+
+            Compras compra = new Compras();
+            compra.setId_user(user); // Defina o usuário logado na compra
+            compra.setId_bilhete(bilhete);
+            compra.setNum_bilhetes(quantidade);
+            compra.setTotal_preco(bilhete.getPrecototal() * quantidade);
+            compra.setData_compra(new Timestamp(System.currentTimeMillis()));
+
+            comprasService.save(compra);
+
+            ra.addFlashAttribute("mensagemCompra", "Compra efetuada com sucesso! Bilhetes Comprados: " + quantidade);
+            modelAndView.setViewName("redirect:/listaEventos");
+            return modelAndView;
+        } catch (Exception e) {
+            modelAndView.setViewName("redirect:/participanteEventos/comprarBilhetes");
+            ra.addFlashAttribute("mensagemErro", "Ocorreu um erro ao processar a compra.");
+            return modelAndView;
+        }
+    }*/
 }

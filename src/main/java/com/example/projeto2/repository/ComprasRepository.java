@@ -13,5 +13,8 @@ public interface ComprasRepository extends JpaRepository<Compras, TipoUser> {
     @Query("SELECT c FROM Compras c WHERE c.id_bilhete.eventos.id_evento = :id_evento")
     List<Compras> findByEventoId(@Param("id_evento") Integer id_evento);
 
+    @Query("SELECT c FROM Compras c WHERE c.id_user.id = :id_user")
+    List<Compras> findByUserId(@Param("id_user") Integer id_user);
+
 }
 
