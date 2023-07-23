@@ -15,4 +15,11 @@ public class AppController {
         modelAndView.setViewName("home");
         return modelAndView;
     }
+
+    @GetMapping("/perfil")
+    public ModelAndView perfil() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("perfil");
+        return modelAndView;
+    }
 }
