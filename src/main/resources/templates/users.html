@@ -83,18 +83,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="userModel : ${userModels}">
-                <td th:text="${userModel.id_user}"></td>
+            <tr th:each="userModel : ${users}">
+                <td th:text="${userModel.id}"></td>
                 <td th:text="${userModel.username}"></td>
                 <td th:text="${userModel.name}"></td>
                 <td th:text="${userModel.phoneNumber}"></td>
-                <td th:text="${userModel.tipo_user.nome}"></td>
+                <td th:text="${userModel.userRole}"></td>
                 <td>
-                    <a class="h4 styled-linke" th:href="@{'/userModels/delete/' + ${userModel.id_user}}">Eliminar</a>
+                    <a class="h4 styled-linke" th:href="@{'/userModels/delete/' + ${userModel.id}}">Eliminar</a>
                 </td>
             </tr>
             </tbody>
         </table>
+        <p th:if="${users.size() == 0}">Não existem utilizadores registados.</p>
     </div>
 </div>
 

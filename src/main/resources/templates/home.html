@@ -12,7 +12,7 @@
             <a class="navbar-brand" th:href="@{/auth/index}">Gestão de Eventos</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a class="nav-link text-white" th:href="@{/userModels}">UserManagerUsers</a></li>
+            <li><a class="nav-link text-white" th:href="@{/users}">UserManagerUsers</a></li>
 
             <li><a class="nav-link text-white" th:href="@{/eventos}">UserManagerEventos</a></li>
 
@@ -34,7 +34,7 @@
         <!-- Restante da navbar -->
         <ul class="nav navbar-nav">
             <li th:if="${#authentication.authorities.contains(new org.springframework.security.core.authority.SimpleGrantedAuthority('MANAGER'))}">
-                <a class="nav-link text-white" th:href="@{/userModels}">Users</a>
+                <a class="nav-link text-white" th:href="@{/users}">Users</a>
                 <a class="nav-link text-white" th:href="@{/eventos}">Eventos</a>
             </li>
 

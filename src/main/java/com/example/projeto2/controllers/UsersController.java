@@ -23,6 +23,7 @@ public class UsersController {
     public ModelAndView getUsers() {
         ModelAndView modelAndView = new ModelAndView("users");
         List<UserModel> userModels = userService.getAllUsers();
+        System.out.println(userModels);
         modelAndView.addObject("users", userModels);
         return modelAndView;
     }
