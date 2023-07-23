@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("auth")
 public class AuthenticationController {
 
+
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationController(AuthenticationManager authenticationManager) {
@@ -39,7 +40,7 @@ public class AuthenticationController {
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
             var auth = this.authenticationManager.authenticate(usernamePassword);
             SecurityContextHolder.getContext().setAuthentication(auth);
-            modelAndView.addObject("principal", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+            modelAndView.addObject("principal", SecurityContextHolder.getContext().getAuthentication());
             modelAndView.addObject("authentication", SecurityContextHolder.getContext().getAuthentication());
             modelAndView.setViewName("redirect:/app/home");
 

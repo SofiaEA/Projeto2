@@ -8,6 +8,7 @@ import com.example.projeto2.services.UserNotFoundException;
 import com.example.projeto2.services.UserDetailsServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,35 +18,51 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 
-@RestController
+@Controller
+@RequestMapping("/users")
 public class UsersController {
     @Resource(name = "userService")
     private UserDetailsServiceImpl userService;
 
-    @GetMapping("/users")
+    private final UserRepository userRepository;
+
+    public UsersController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @GetMapping("/")
     public ModelAndView getUsers() {
         ModelAndView modelAndView = new ModelAndView("users");
         List<UserModel> userModels = userService.getAllUsers();
+        System.out.println(userModels);
         modelAndView.addObject("users", userModels);
         return modelAndView;
     }
 
-    @GetMapping("/users/newUser")
+    @GetMapping("/newUser")
     public ModelAndView getNewForm() {
         ModelAndView modelAndView = new ModelAndView("user_form");
         modelAndView.addObject("user", new UserModel());
         return modelAndView;
    }
 
-    @PostMapping("/users/save")
-    public ModelAndView saveUser(UserModel userModel, RedirectAttributes ra) {
-        userService.save(userModel);
-        ModelAndView modelAndView = new ModelAndView("redirect:/users");
-        ra.addFlashAttribute("message", "O utilizador foi adicionado com sucesso!");
+    @PostMapping("/save")
+    public ModelAndView saveUser(@ModelAttribute @Validated RegisterDTO data) {
+        ModelAndView modelAndView = new ModelAndView("users");
+
+        if (this.userRepository.findByUsername(data.name()).isPresent()) {
+            modelAndView.addObject("errorMessage", "Esse email já existe!");
+            return modelAndView;
+        }
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+        UserModel newUserModel = new UserModel(data.name(), data.username(), encryptedPassword, data.phoneNumber(), UserRole.valueOf(data.userRole().toUpperCase()));
+
+        userService.save(newUserModel);
+        modelAndView.addObject("message", "O utilizador foi adicionado com sucesso!");
         return modelAndView;
     }
 
-    @GetMapping("/users/edit/{id_user}")
+    @GetMapping("/edit/{id_user}")
     public ModelAndView showEditForm(@PathVariable("id_user") Integer id_user) throws UserNotFoundException {
         UserModel userModel = userService.getUserById(id_user);
         ModelAndView modelAndView = new ModelAndView("user_form");
