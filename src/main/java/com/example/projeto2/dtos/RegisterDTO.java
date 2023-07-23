@@ -1,4 +1,4 @@
-package com.example.projeto2;
+package com.example.projeto2.models;
 
 public class RegisterDTO {
 
